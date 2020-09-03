@@ -37,13 +37,13 @@ const handleErrors = (err) => {
     }
     //duplicate
     if (err.code === 11000) {
-        errors.email = "That email already exists.";
+        errors.email = "That email already exists";
         return errors;
     }
     // validation errors
     if (err.message.includes("user validation failed")) {
-    Object.values(err.errors).forEach(({ properties }) => {
-      errors[properties.path] = [properties.message];
+        Object.values(err.errors).forEach(({ properties }) => {
+        errors[properties.path] = [properties.message];
     });
   }
   return errors;
@@ -305,7 +305,7 @@ router.get("/signup", (req, res) => {
 //login  - GET
 router.get("/login", (req, res) => {
     res.render("pages/login");
-})
+});
 
 //signup - POST
 router.post("/signup", async (req, res) => {
@@ -325,10 +325,10 @@ router.post("/signup", async (req, res) => {
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
-    const user = await User.login(email, password);
-    const token = createToken(user._id);
-    res.cookie("jwt", token, {httpOnly: true, maxAge:maxAge*1000});
-    res.status(201).json({user: user._id});
+        const user = await User.login(email, password);
+        const token = createToken(user._id);
+        res.cookie("jwt", token, {httpOnly: true, maxAge:maxAge*1000});
+        res.status(201).json({user: user._id});
     } catch (err) {
         const error = handleErrors(err);
         res.status(400).json({error});

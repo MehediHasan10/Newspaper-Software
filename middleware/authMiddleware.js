@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../schema/user');
 
+//Route protecting Middleware
 const requireAuth = (req,res, next) => {
     const token = req.cookies.jwt;
 
@@ -31,7 +32,6 @@ const checkUser = (req, res, next) => {
             } else {
                 let user = await User.findById(decodedToken.id);
                 res.locals.user = user;
-                console.log("auth",user);
                 next();
             }
         });

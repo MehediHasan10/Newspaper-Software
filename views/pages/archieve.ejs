@@ -139,9 +139,13 @@
                         </div>
                         <div class="card-footer">
                             <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                            <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
-                            <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit | </a>
-                            <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
+                            <% if (locals.user) { %>
+                                <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
+                                <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit | </a>
+                                <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
+                            <% } else { %>
+                                <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
+                            <% } %>
                         </div>
                     </div>
                 </div>
