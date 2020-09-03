@@ -1,0 +1,58 @@
+<%- include('../template/header'); -%>
+
+<form action='/signup' class='signup-form'>
+    <h2>Sign Up</h2>
+    <label for="email">Email</label>
+    <!-- We have donne some custom validation. If we use input type as "email", we can get the html5 validation instead. -->
+    <input class='signup-input' type="text" name="email" required />
+    <!-- This container is for the error message. -->
+    <div class="email error"></div>
+    
+
+    <label for="password" class="signup-label">Password</label>
+    <!-- When we will type the password, it will show as dot in the form. input type password, make sure that. -->
+    <input class='signup-input' type="password" name="password"  required />
+    <div class="password error"></div>
+    <button class="signup-button">Sign Up</button>
+</form>
+
+<%- include('../template/footer'); -%>
+
+<script>
+    let form = document.querySelector('form');
+    const emailError = document.querySelector('.email.error');
+    const passwordError = document.querySelector('.password.error');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        //reset errors
+        emailError.textContent = "";
+        passwordError.textContent = "";
+
+        //get the values
+        const email = form.email.value;
+        const password = form.password.value;
+
+        try {
+            const res = await fetch ('/signup', { 
+                method: 'POST',
+                body: JSON.stringify({email,password}),
+                headers: { 'Content-Type': 'application/json'}
+            });
+            const data = await res.json();
+
+            if(data.error){
+                emailError.textContent = data.error.email;
+                passwordError.textContent = data.error.password;
+                form.reset();
+            }
+            if(data.user){
+                location.assign('/showTable');
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    })
+</script>
+

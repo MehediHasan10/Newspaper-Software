@@ -1,0 +1,4 @@
+/node_modules
+
+# As, node module is a big file, we've to put this in a gitignore file. So that, it doesn't get uploaded when we push our website into the git repository. 
+# After cloning this repository from the git, we should use the command "npm install" to work with the node modules again.
