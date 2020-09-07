@@ -8,10 +8,11 @@ const {requireAuth, checkUser} = require("../middleware/authMiddleware");
 const multer = require("multer");
 const path = require("path");
 
-const newsModel = require("../schema/addNews.js");
+const newsModel = require("../schema/addNews");
 const User = require("../schema/user");
+const NewspaperModel = require("../schema/newsLogo");
 
-//multer setup
+//multer setup for news image
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './public/myUploads');
@@ -23,6 +24,21 @@ var storage = multer.diskStorage({
 var upload = multer({
     storage: storage,
  }).single("newsUp");
+
+
+//multer setup for logo
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, './public/logo');
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+    },
+  });  
+var upload = multer({
+    storage: storage,
+ }).single("logo");
+
 
 //handle errors
 const handleErrors = (err) => {
@@ -78,7 +94,7 @@ router.get("/addForm", requireAuth, (req, res) => res.render("pages/form"));
 
 //@route  - POST /addForm
 //@desc   - data fetching from the add page
-//@access - public
+//@access - private
 router.post("/addForm",upload, async (req, res, next) => {
     //console.log("file",req.file);
     //console.log(req.body)
@@ -107,6 +123,34 @@ router.post("/addForm",upload, async (req, res, next) => {
     
 });
 
+
+//@route  -  GET /addNewsPaper
+//@desc   -  a route to the addNewsPaper page
+//@access -  private
+router.get("/addNewsPaper", requireAuth, (req, res) => res.render("pages/addNewsPaper"));
+
+
+//@route  - POST /addNewsPaper
+//@desc   - data fetching from the addNewspapaer page
+//@access - private
+router.post("/addNewsPaper", upload, async (req, res, next) =>{
+    const path = req.file && req.file.path;
+    if(path){
+        var logoPath = "/logo/" + req.file.filename;
+        const newsData = new NewspaperModel ({
+            newsPaperName: req.body.newsPaperName,
+            logo: logoPath
+        });
+        try{
+            const newsPaperData = await newsData.save();
+            res.redirect("/addNewsPaper");
+        } catch (err) {
+            console.log(`Error: ${err}`);
+        }
+    } else {
+        console.log("File is not uploaded successfully...");
+    }
+})
 
 //@route  -  GET /showTable
 //@desc   -  a route to the the display page
@@ -339,5 +383,6 @@ router.post('/login', async (req, res) => {
 router.get('/logout', async (req, res) => {
     res.cookie("jwt", "", { maxAge:1 });
     res.redirect("/");
-})
+});
+
 module.exports = router;
