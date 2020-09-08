@@ -27,7 +27,7 @@ var upload = multer({
 
 
 //multer setup for logo
-var storage = multer.diskStorage({
+var storage2 = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, './public/logo');
     },
@@ -35,8 +35,8 @@ var storage = multer.diskStorage({
       cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
     },
   });  
-var upload = multer({
-    storage: storage,
+var upload2 = multer({
+    storage: storage2,
  }).single("logo");
 
 
@@ -133,7 +133,7 @@ router.get("/addNewsPaper", requireAuth, (req, res) => res.render("pages/addNews
 //@route  - POST /addNewsPaper
 //@desc   - data fetching from the addNewspapaer page
 //@access - private
-router.post("/addNewsPaper", upload, async (req, res, next) =>{
+router.post("/addNewsPaper", upload2, async (req, res, next) =>{
     const path = req.file && req.file.path;
     if(path){
         var logoPath = "/logo/" + req.file.filename;
@@ -167,8 +167,10 @@ router.get("/showTable", async (req, res) => {
             date:{
                 $gte: today,
             }
+
         });
-        res.render('pages/table', {output:tableData});
+        //console.log(tableData);
+        res.render('pages/table', {output:tableData}); 
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
