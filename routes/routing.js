@@ -7,6 +7,7 @@ const {requireAuth, checkUser} = require("../middleware/authMiddleware");
 
 const multer = require("multer");
 const path = require("path");
+const puppeteer = require("puppeteer");
 
 const newsModel = require("../schema/addNews");
 const User = require("../schema/user");
@@ -208,6 +209,7 @@ router.get("/archieve", async (req, res) => {
 router.get("/open/:id", async (req, res) => {
     try {
         const tableDataById = await newsModel.findById(req.params.id);
+        // console.log(tableDataById);
         res.render('pages/open', {output:tableDataById});
     } catch (err) {
         console.log(`ERROR : ${err}`);
@@ -341,6 +343,20 @@ router.post("/filterNews", async (req, res) => {
     }
 });
 
+//pdfGeneration
+// router.get('/pdfGenerate', async (req, res) => {
+//     try {
+//             const browser = await puppeteer.launch()
+//             const page = await browser.newPage()
+//             await page.goto('https://www.medium.com')
+//             await page.pdf({path: 'medium.pdf', format: 'A4'});    
+//             await browser.close()
+        
+//     } catch (err) {
+//         console.log(err);
+//     }
+// })
+
 //Auth-Routes
 
 //signup - GET
@@ -386,5 +402,7 @@ router.get('/logout', async (req, res) => {
     res.cookie("jwt", "", { maxAge:1 });
     res.redirect("/");
 });
+
+
 
 module.exports = router;
