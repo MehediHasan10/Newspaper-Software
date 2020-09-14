@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
 
-const add = new mongoose.Schema({
+// Get the Schema constructor
+var Schema = mongoose.Schema;
+
+const newsSchema = new Schema({
     headline: String,
     pageNumber: String,
-    newsPaper: String,
     district: String,
     date: Date,
     image: String,
+    newspapers: []
 
 });
 
+var news = mongoose.model("News", newsSchema);
 
-module.exports = mongoose.model("news", add);
+module.exports = news;

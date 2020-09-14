@@ -12,26 +12,13 @@
                         <label >Newspaper Name</label> <br>
                         <select name="newsPaper">
                             <option value="">Choose a Newspaper</option>
-                            <option value="প্রথম আলো">প্রথম আলো</option>
-                            <option value="দৈনিক ইত্তেফাক">দৈনিক ইত্তেফাক</option>
-                            <option value="দৈনিক জনকণ্ঠ">দৈনিক জনকণ্ঠ</option>
-                            <option value="যুগান্তর">যুগান্তর</option>
-                            <option value="দৈনিক ইনকিলাব">দৈনিক ইনকিলাব</option>
-                            <option value="সংবাদ">সংবাদ</option>
-                            <option value="ভোরের কাগজ">ভোরের কাগজ</option>
-                            <option value="কালের কণ্ঠ">কালের কণ্ঠ</option>
-                            <option value="যায় যায় দিন">যায় যায় দিন</option>
-                            <option value="বাংলাদেশ প্রতিদিন">বাংলাদেশ প্রতিদিন</option>
-                            <option value="আলোকিত বাংলাদেশ">আলোকিত বাংলাদেশ</option>
-                            <option value="বণিক বার্তা">বণিক বার্তা</option>
-                            <option value="মানবজমিন">মানবজমিন</option>
-                            <option value="সমকাল">সমকাল</option>
-                            <option value="বাংলাদেশ অর্থনীতি">বাংলাদেশ অর্থনীতি</option>
-                            <option value="আমাদের সময়">আমাদের সময়</option>
-                            <option value="The Daily Observer">The Daily Observer</option>
-                            <option value="The Daily Star">The Daily Star</option>
-                            <option value="Financial Express">Financial Express</option>
-                            <option value="The Daily Sun">The Daily Sun</option>
+                            <% if(newspaper.length > 0) { %>
+                                <% newspaper.forEach((paper) => { %>
+                                    <option value="<%= paper.newsPaperName %>" ><%= paper.newsPaperName %></option>
+                                <% }); %>
+                            <% } else { %>
+                                No Record Found !
+                            <% } %>
                         </select> 
                     </div>                                      
                 </div>
@@ -129,7 +116,12 @@
                 <div class="card-deck">
                     <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
                         <div class="card-header text-center" style="font-weight:bold;">
-                            <%= entry.newsPaper %>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <img class="card-img-top" style = "width:50px; height:50px " src="<%= entry.newspapers[0].logo %>">
+                                    <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span>
+                                </div>
+                            </div>
                         </div>
                         <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
                         <div class="card-body">

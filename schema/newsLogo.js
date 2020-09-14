@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
-const addNewsPaper = new mongoose.Schema({
+const NewsPaperSchema = new mongoose.Schema({
     newsPaperName: String,
     logo: String,
 });
 
-module.exports = mongoose.model("newspaper", addNewsPaper);
+const newspapers = mongoose.model("Newspapers", NewsPaperSchema);
+
+module.exports = newspapers;

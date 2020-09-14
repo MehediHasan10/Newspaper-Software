@@ -5,9 +5,18 @@
 <div>
     <div class="container pt-4">
         <h1 class="text-center" style='margin-top:3em'>
-            <%= output.newsPaper %>
+            <div class="row">
+                <div class="col-md-3">
+                    <img class="card-img-top"  src="<%= output.newspapers[0].logo %>" style="width:80px; height: 80px;">
+                </div>
+                <div class="col-md-6"><%= output.newspapers[0].newsPaperName %></div>
+                <div class="col-md-3">
+                    <img src="/images/ais.png" style="width:80px; height: 80px;">
+                </div>
+            </div>
+
         </h1>
-        <h2 class="text-center">
+        <h2 class="text-center mb-4">
             <%= output.headline %>
         </h2>
         <div class="row">

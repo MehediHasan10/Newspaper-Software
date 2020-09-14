@@ -8,7 +8,7 @@ const {requireAuth, checkUser} = require("./middleware/authMiddleware");
 
 
 const url = "mongodb://localhost:27017/newsPaper";
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 const app = express();
 
 //body-parser middleware

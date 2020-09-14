@@ -1,17 +1,17 @@
 const express = require("express");
 const router = express.Router();
-//const router = require("express").Router();
-const jwt = require("jsonwebtoken");
-const {requireAuth, checkUser} = require("../middleware/authMiddleware");
-
-
-const multer = require("multer");
-const path = require("path");
-const puppeteer = require("puppeteer");
 
 const newsModel = require("../schema/addNews");
 const User = require("../schema/user");
 const NewspaperModel = require("../schema/newsLogo");
+
+//const router = require("express").Router();
+const jwt = require("jsonwebtoken");
+const {requireAuth, checkUser} = require("../middleware/authMiddleware");
+
+const multer = require("multer");
+const path = require("path");
+const puppeteer = require("puppeteer");
 
 //multer setup for news image
 var storage = multer.diskStorage({
@@ -90,7 +90,14 @@ router.get("/", (req, res) => {
 //@route  -  GET /addForm
 //@desc   -  a route to the add page
 //@access -  public
-router.get("/addForm", requireAuth, (req, res) => res.render("pages/form"));
+router.get("/addForm", requireAuth, async (req, res) => {
+    try {
+        const newspaper = await NewspaperModel.find({});
+        res.render("pages/form", {output:newspaper});
+    } catch (err) {
+        console.log(`ERROR : ${err}`);
+    }
+});
 
 
 //@route  - POST /addForm
@@ -102,6 +109,8 @@ router.post("/addForm",upload, async (req, res, next) => {
     const path = req.file && req.file.path;
     //console.log(path);
     if(path){
+        const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
+        console.log(newspaper);
         var imagePath = "/myUploads/" + req.file.filename;
         const data = new newsModel({
             headline: req.body.headline,
@@ -110,6 +119,7 @@ router.post("/addForm",upload, async (req, res, next) => {
             district: req.body.district,
             date: req.body.date,
             image: imagePath,
+            newspapers: newspaper
         });
         try {
             const newsData = await data.save();
@@ -168,9 +178,7 @@ router.get("/showTable", async (req, res) => {
             date:{
                 $gte: today,
             }
-
-        });
-        //console.log(tableData);
+        })
         res.render('pages/table', {output:tableData}); 
     } catch (err) {
         console.log(`ERROR : ${err}`);
@@ -191,12 +199,13 @@ router.get("/archieve", async (req, res) => {
     //console.log(today , new Date('2020-08-20'));
     //console.log(today < new Date('2020-08-20'));
     try {
+        const newspaper = await NewspaperModel.find({});
         const tableData = await newsModel.find({
             date: {
                 $lt: today,
             }
         });
-        res.render('pages/archieve', {output:tableData});
+        res.render('pages/archieve', {output:tableData, newspaper: newspaper});
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
@@ -299,44 +308,45 @@ router.post("/filterNews", async (req, res) => {
     // console.log('npaper:',nPaper);
     // console.log("date:",date); 
     try {
+        const newspaper = await NewspaperModel.find({});
         if(nPaper === ''){
             if(date === ''){
                 const filterData = await newsModel.find({district: dName});
-                res.render('pages/archieve', {output:filterData});
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else if(dName === ''){
                 const filterData = await newsModel.find({date: date});
-                res.render('pages/archieve', {output:filterData});
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else {
                 const filterData = await newsModel.find({district: dName, date: date});
-                res.render('pages/archieve', {output:filterData});
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             }
         } else if(date === ''){
             if (nPaper === '') {
                 const filterData = await newsModel.find({district: dName});
-                res.render('pages/archieve', {output:filterData});                
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else if (dName === ''){
-                const filterData = await newsModel.find({newsPaper: nPaper});
-                res.render('pages/archieve', {output:filterData});
+                const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else {
-                const filterData = await newsModel.find({district: dName, newsPaper: nPaper});
-                res.render('pages/archieve', {output:filterData});
+                const filterData = await newsModel.find({district: dName, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             }
         } else if (dName === ''){
             if (nPaper === '') {
                 const filterData = await newsModel.find({date: date});
-                res.render('pages/archieve', {output:filterData});
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else if (date === '') {
-                const filterData = await newsModel.find({newsPaper: nPaper});
-                res.render('pages/archieve', {output:filterData});
+                const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}});
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else {
-                const filterData = await newsModel.find({date: date, newsPaper: nPaper});
-                res.render('pages/archieve', {output:filterData});
+                const filterData = await newsModel.find({date: date, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             }
         } else {
-            const filterData = await newsModel.find({newsPaper: nPaper, district: dName, date: date});
+            const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}, district: dName, date: date});
             //console.log(filterData);
             //res.redirect('/showTable')
-            res.render('pages/archieve', {output:filterData});
+            res.render('pages/archieve', {output:filterData, newspaper: newspaper});
         }   
     } catch (err) {
         console.log(`Error: ${err}`);

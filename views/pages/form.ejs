@@ -19,26 +19,13 @@
                                 <label >Newspaper Name</label> <br>
                                 <select name="newsPaper" required>
                                     <option value="" disabled selected hidden>Choose a Newspaper</option>
-                                    <option value="প্রথম আলো">প্রথম আলো</option>
-                                    <option value="দৈনিক ইত্তেফাক">দৈনিক ইত্তেফাক</option>
-                                    <option value="দৈনিক জনকণ্ঠ">দৈনিক জনকণ্ঠ</option>
-                                    <option value="যুগান্তর">যুগান্তর</option>
-                                    <option value="দৈনিক ইনকিলাব">দৈনিক ইনকিলাব</option>
-                                    <option value="সংবাদ">সংবাদ</option>
-                                    <option value="ভোরের কাগজ">ভোরের কাগজ</option>
-                                    <option value="কালের কণ্ঠ">কালের কণ্ঠ</option>
-                                    <option value="যায় যায় দিন">যায় যায় দিন</option>
-                                    <option value="বাংলাদেশ প্রতিদিন">বাংলাদেশ প্রতিদিন</option>
-                                    <option value="আলোকিত বাংলাদেশ">আলোকিত বাংলাদেশ</option>
-                                    <option value="বণিক বার্তা">বণিক বার্তা</option>
-                                    <option value="মানবজমিন">মানবজমিন</option>
-                                    <option value="সমকাল">সমকাল</option>
-                                    <option value="বাংলাদেশ অর্থনীতি">বাংলাদেশ অর্থনীতি</option>
-                                    <option value="আমাদের সময়">আমাদের সময়</option>
-                                    <option value="The Daily Observer">The Daily Observer</option>
-                                    <option value="The Daily Star">The Daily Star</option>
-                                    <option value="Financial Express">Financial Express</option>
-                                    <option value="The Daily Sun">The Daily Sun</option>
+                                    <% if(output.length > 0) { %>
+                                        <% output.forEach((newspaper) => { %>
+                                            <option value=<%= newspaper._id %> ><%= newspaper.newsPaperName %></option>
+                                        <% }); %>
+                                    <% } else { %>
+                                        No Record Found !
+                                    <% } %>
                                 </select> 
                             </div>                                      
                         </div>
