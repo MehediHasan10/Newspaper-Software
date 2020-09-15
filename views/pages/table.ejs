@@ -39,7 +39,7 @@
                             </div>
                             <div class="card-footer" class="text-center">
                                 <% if (locals.user) { %>
-                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;"><i class="fas fa-folder-open" style="color:green; margin-right:10px" aria-hidden="true"></i> | </a>
+                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
                                     <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit | </a>
                                     <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
                                 <% } else { %>
