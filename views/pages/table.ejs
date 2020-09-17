@@ -19,8 +19,8 @@
     </div> --> 
 
 
-    <div class="container">
-        <h1 class="text-center" style='padding-top:3em'>Today's News</h1>
+    <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
+        <h1 class="text-center" style='padding-top:3em; color:rgba(34, 37, 42, 0.8)ite;'>Today's News</h1>
         <% if(output.length > 0) { %>
             <div class="row">
                 <% output.forEach((entry) => { %>   
@@ -30,8 +30,8 @@
                             <div class="card-header text-center" style="font-weight:bold;">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <img class="card-img-top" style = "width:50px; height:50px " src="<%= entry.newspapers[0].logo %>">
-                                        <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span>
+                                        <img class="card-img-top" style = "width:100px; height:50px " src="<%= entry.newspapers[0].logo %>">
+                                        <!-- <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span> -->
                                     </div>
 
                                 </div>
@@ -45,11 +45,11 @@
                             </div>
                             <div class="card-footer" class="text-center">
                                 <% if (locals.user) { %>
-                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
-                                    <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit | </a>
-                                    <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
+                                    <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>
+                                    <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>
+                                    <a href="/delete/<%= entry.id %>" class="btn btn-danger"  style="text-decoration:none;"> <i class="fa fa-trash"></i> Delete</a>
                                 <% } else { %>
-                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
+                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open  </a>
                                 <% } %>
                             </div>
                         </div>
