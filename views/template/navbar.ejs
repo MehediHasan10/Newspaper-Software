@@ -3,7 +3,7 @@
         <nav class="navbar navbar-default navbar-expand-lg navbar-light fixed-top">
             <div class="container">
 
-                <a class="navbar-brand nav-link"  href="/"><img src="/images/ais.png" style="width:80px; height: 80px;"></a>
+                <a class="navbar-brand nav-link"  href="/"><img src="/images/ais.png" style="width:60px; height: 60px;"></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -16,10 +16,20 @@
                     <div class="form-inline my-2 my-lg-0">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 
+
+                            
+
+
                             <% if (locals.user) { %>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/addForm">Add News Details</a>
-                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      Admin Panel
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="nav-link" href="/addForm">Add News Details</a>
+                                        <a class="nav-link" href="/addNewsPaper">Add News Paper</a>                                       
+                                    </div>
+                                  </li>
                             <% } %>
                             <li class="nav-item">
                                 <a class="nav-link" href="/showTable">Today's News</a>
@@ -28,9 +38,6 @@
                                 <a class="nav-link" href="/archieve">News Archive</a>
                             </li>
                             <% if (locals.user) { %>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/addNewsPaper">Add News Paper</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/logout">logout</a>
                             </li>
