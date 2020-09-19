@@ -31,7 +31,6 @@
                     <h5>
                         <b>District: </b><%= output.district %>
                     </h5>
-                
                 </div>
                 <div class="col-md-4 text-center">
                     <h5>
@@ -43,21 +42,44 @@
         
         
         
-        <div class="text-center">
-            <img class="img-fluid" src="<%= output.image %>" alt=""> 
+        <div class="text-center" style="display: inline-block;position: relative;">
+            <img class="img-fluid" id="test" src="<%= output.image %>" alt="">
+            
+
+            
         </div>
-        <!-- <div>
-            <a href="/pdfGenerate">Download PDF</a>
-        </div> -->
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="../add-download-btn.js"></script>  -->
         
         <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
             Share on Facebook
-        </a>
+        </a> 
         
     </div>
 </div>
 
 
+<!-- <script>
+    var text = "DOWNLOAD";
+    var className = "btn";
+
+    $("#test").addDownloadBtn(text, className);
+
+</script> -->
 
 
 <%- include('../template/footer') -%>
+    
+  <script>
+    var text = "DOWNLOAD";
+    var className = "btn";
+
+    $("#test").addDownloadBtn(text, className);
+  </script>
+<!-- <script src="../../public/Download-Button-Image/add-download-btn.js"></script>
+<script>
+    var text = "DOWNLOAD";
+    var className = "btn";
+
+    $("#test").addDownloadBtn(text, className);
+</script> -->

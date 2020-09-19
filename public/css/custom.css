@@ -102,6 +102,24 @@ form h2{
   font-weight: bold;
 }
 
+/* ------------------------*/
+
+
+.btn {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 3px;
+  border: solid 1px #C0392B;
+  background-color: #E74C3C;
+  text-decoration: none;
+  color: white;
+}
+.btn:hover {
+  opacity: .9;
+}
+.btn:active {
+  opacity: 1;
+}
 
   
 /*----------------------------------------------------------------*/
