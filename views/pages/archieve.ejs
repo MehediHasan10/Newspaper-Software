@@ -1,183 +1,156 @@
 <%- include('../template/header') -%>
 <%- include('../template/navbar') -%>
 
-<div style="margin: 3rem";>
-    <div class="container">
-        <h1 class="text-center" style='margin-top:3em'>Archive News</h1>
-
-        <form method="post" action="/filterNews" style="border-style: outset; margin-bottom: 20px; padding-top: 10px; padding-left: 120px;">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label >Newspaper Name</label> <br>
-                        <select name="newsPaper">
-                            <option value="">Choose a Newspaper</option>
-                            <% if(newspaper.length > 0) { %>
-                                <% newspaper.forEach((paper) => { %>
-                                    <option value="<%= paper.newsPaperName %>" ><%= paper.newsPaperName %></option>
-                                <% }); %>
-                            <% } else { %>
-                                No Record Found !
-                            <% } %>
-                        </select> 
-                    </div>                                      
-                </div>
-            
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label >District Name</label><br>
-                        <select name="district">
-                            <option value="">Choose a District</option>
-                            <option value="কক্সবাজার">কক্সবাজার</option>
-                            <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
-                            <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
-                            <option value="কুমিল্লা">কুমিল্লা</option>
-                            <option value="কুষ্টিয়া">কুষ্টিয়া</option>
-                            <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
-                            <option value="খুলনা">খুলনা</option>
-                            <option value="গাইবান্ধা">গাইবান্ধা</option>
-                            <option value="গাজীপুর">গাজীপুর</option>
-                            <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
-                            <option value="চট্টগ্রাম">চট্টগ্রাম</option>
-                            <option value="চাঁদপুর">চাঁদপুর</option>
-                            <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
-                            <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
-                            <option value="জয়পুরহাট">জয়পুরহাট</option>
-                            <option value="জামালপুর">জামালপুর</option>
-                            <option value="ঝালকাঠি">ঝালকাঠি</option>
-                            <option value="ঝিনাইদহ">ঝিনাইদহ</option>
-                            <option value="টাঙ্গাইল">টাঙ্গাইল</option>
-                            <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
-                            <option value="ঢাকা">ঢাকা</option>
-                            <option value="দিনাজপুর">দিনাজপুর</option>
-                            <option value="নওগাঁ">নওগাঁ</option>
-                            <option value="নড়াইল">নড়াইল</option>
-                            <option value="নরসিংদি">নরসিংদি</option>
-                            <option value="নাটোর">নাটোর</option>
-                            <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
-                            <option value="নীলফামারি">নীলফামারি</option>
-                            <option value="নেত্রকোনা">নেত্রকোনা</option>
-                            <option value="নোয়াখালি">নোয়াখালি</option>
-                            <option value="পঞ্চগড়">পঞ্চগড়</option>
-                            <option value="পটুয়াখালি">পটুয়াখালি</option>
-                            <option value="পাবনা">পাবনা</option>
-                            <option value="পিরোজপুর">পিরোজপুর</option>
-                            <option value="ফরিদপুর">ফরিদপুর</option>
-                            <option value="ফেনী">ফেনী</option>
-                            <option value="বগুড়া">বগুড়া</option>
-                            <option value="বরগুনা">বরগুনা</option>
-                            <option value="বরিশাল">বরিশাল</option>
-                            <option value="বাগেরহাট">বাগেরহাট</option>
-                            <option value="বান্দরবান">বান্দরবান</option>
-                            <option value="ব্রাহ্মণবাড়িয়া">ব্রাহ্মণবাড়িয়া</option>
-                            <option value="ভোলা">ভোলা</option>
-                            <option value="ময়মনসিংহ">ময়মনসিংহ</option>
-                            <option value="মাগুরা">মাগুরা</option>
-                            <option value="মাদারিপুর">মাদারিপুর</option>
-                            <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
-                            <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
-                            <option value="মেহেরপুর">মেহেরপুর</option>
-                            <option value="মৌলভীবাজার">মৌলভীবাজার</option>
-                            <option value="যশোর">যশোর</option>
-                            <option value="রংপুর">রংপুর</option>
-                            <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
-                            <option value="রাজবাড়ি">রাজবাড়ি</option>
-                            <option value="রাজশাহী">রাজশাহী</option>
-                            <option value="লক্ষ্মীপুর">লক্ষ্মীপুর</option>
-                            <option value="লালমনিরহাট">লালমনিরহাট</option>
-                            <option value="শরিয়তপুর">শরিয়তপুর</option>
-                            <option value="শেরপুর">শেরপুর</option>
-                            <option value="সাতক্ষীরা">সাতক্ষীরা</option>
-                            <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
-                            <option value="সিলেট">সিলেট</option>
-                            <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
-                            <option value="হবিগঞ্জ">হবিগঞ্জ</option>
-                        </select> 
+<div class="tableNews">
+    <div style="margin: 3rem";>
+        <div class="container" style="background:rgb(255 255 255 / 60%);"">
+            <h1 class="text-center" style='margin-top:3em'>Archive News</h1>
+    
+            <form method="post" action="/filterNews" style="border-style: outset; margin-bottom: 20px; padding-top: 10px; padding-left: 120px;">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label >Newspaper Name</label> <br>
+                            <select name="newsPaper">
+                                <option value="">Choose a Newspaper</option>
+                                <% if(newspaper.length > 0) { %>
+                                    <% newspaper.forEach((paper) => { %>
+                                        <option value="<%= paper.newsPaperName %>" ><%= paper.newsPaperName %></option>
+                                    <% }); %>
+                                <% } else { %>
+                                    No Record Found !
+                                <% } %>
+                            </select> 
+                        </div>                                      
                     </div>
-                </div>
-
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="validationDefault05">Date</label>
-                        <input type="date" class="form-control" id="validationDefault05" name="date" placeholder="Enter a date">
-                    </div>
-                </div>
                 
-                <div class="col-md-3" style="margin-top:30px;">
-                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
-                </div>                
-            </div>
-        </form>
-
-        <% if(output.length > 0) { %>
-        <div class="row">
-            <% output.forEach((entry) => { %>
-            <div class="col-md-4" style="margin-bottom: 10px;">                
-                <div class="card-deck">
-                    <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
-                        <div class="card-header text-center" style="font-weight:bold;">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <img class="card-img-top" style = "width:50px; height:50px " src="<%= entry.newspapers[0].logo %>">
-                                    <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label >District Name</label><br>
+                            <select name="district">
+                                <option value="">Choose a District</option>
+                                <option value="কক্সবাজার">কক্সবাজার</option>
+                                <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
+                                <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
+                                <option value="কুমিল্লা">কুমিল্লা</option>
+                                <option value="কুষ্টিয়া">কুষ্টিয়া</option>
+                                <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
+                                <option value="খুলনা">খুলনা</option>
+                                <option value="গাইবান্ধা">গাইবান্ধা</option>
+                                <option value="গাজীপুর">গাজীপুর</option>
+                                <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
+                                <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                                <option value="চাঁদপুর">চাঁদপুর</option>
+                                <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
+                                <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
+                                <option value="জয়পুরহাট">জয়পুরহাট</option>
+                                <option value="জামালপুর">জামালপুর</option>
+                                <option value="ঝালকাঠি">ঝালকাঠি</option>
+                                <option value="ঝিনাইদহ">ঝিনাইদহ</option>
+                                <option value="টাঙ্গাইল">টাঙ্গাইল</option>
+                                <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
+                                <option value="ঢাকা">ঢাকা</option>
+                                <option value="দিনাজপুর">দিনাজপুর</option>
+                                <option value="নওগাঁ">নওগাঁ</option>
+                                <option value="নড়াইল">নড়াইল</option>
+                                <option value="নরসিংদি">নরসিংদি</option>
+                                <option value="নাটোর">নাটোর</option>
+                                <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
+                                <option value="নীলফামারি">নীলফামারি</option>
+                                <option value="নেত্রকোনা">নেত্রকোনা</option>
+                                <option value="নোয়াখালি">নোয়াখালি</option>
+                                <option value="পঞ্চগড়">পঞ্চগড়</option>
+                                <option value="পটুয়াখালি">পটুয়াখালি</option>
+                                <option value="পাবনা">পাবনা</option>
+                                <option value="পিরোজপুর">পিরোজপুর</option>
+                                <option value="ফরিদপুর">ফরিদপুর</option>
+                                <option value="ফেনী">ফেনী</option>
+                                <option value="বগুড়া">বগুড়া</option>
+                                <option value="বরগুনা">বরগুনা</option>
+                                <option value="বরিশাল">বরিশাল</option>
+                                <option value="বাগেরহাট">বাগেরহাট</option>
+                                <option value="বান্দরবান">বান্দরবান</option>
+                                <option value="ব্রাহ্মণবাড়িয়া">ব্রাহ্মণবাড়িয়া</option>
+                                <option value="ভোলা">ভোলা</option>
+                                <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                                <option value="মাগুরা">মাগুরা</option>
+                                <option value="মাদারিপুর">মাদারিপুর</option>
+                                <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
+                                <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
+                                <option value="মেহেরপুর">মেহেরপুর</option>
+                                <option value="মৌলভীবাজার">মৌলভীবাজার</option>
+                                <option value="যশোর">যশোর</option>
+                                <option value="রংপুর">রংপুর</option>
+                                <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
+                                <option value="রাজবাড়ি">রাজবাড়ি</option>
+                                <option value="রাজশাহী">রাজশাহী</option>
+                                <option value="লক্ষ্মীপুর">লক্ষ্মীপুর</option>
+                                <option value="লালমনিরহাট">লালমনিরহাট</option>
+                                <option value="শরিয়তপুর">শরিয়তপুর</option>
+                                <option value="শেরপুর">শেরপুর</option>
+                                <option value="সাতক্ষীরা">সাতক্ষীরা</option>
+                                <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
+                                <option value="সিলেট">সিলেট</option>
+                                <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
+                                <option value="হবিগঞ্জ">হবিগঞ্জ</option>
+                            </select> 
+                        </div>
+                    </div>
+    
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="validationDefault05">Date</label>
+                            <input type="date" class="form-control" id="validationDefault05" name="date" placeholder="Enter a date">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3" style="margin-top:30px;">
+                        <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+                    </div>                
+                </div>
+            </form>
+    
+            <% if(output.length > 0) { %>
+            <div class="row">
+                <% output.forEach((entry) => { %>
+                <div class="col-md-4" style="margin-bottom: 10px;">                
+                    <div class="card-deck">
+                        <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
+                            <div class="card-header text-center" style="font-weight:bold;">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <img class="card-img-top" style = "width:50px; height:50px " src="<%= entry.newspapers[0].logo %>">
+                                        <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
-                        <div class="card-body">
-                            <h5 class="card-title" style="text-align: justify;"><%= entry.headline %></h5>
-                            <h6 class="card-text">Date: <%= entry.date.toISOString().split('T')[0] %></h6>
-                            <h6 class="card-text">District: <%= entry.district %></h6>
-                        </div>
-                        <div class="card-footer">
-                            <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                            <% if (locals.user) { %>
-                                <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
-                                <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit | </a>
-                                <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
-                            <% } else { %>
-                                <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open  </a>
-                            <% } %>
+                            <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: justify;"><%= entry.headline %></h5>
+                                <h6 class="card-text">Date: <%= entry.date.toISOString().split('T')[0] %></h6>
+                                <h6 class="card-text">District: <%= entry.district %></h6>
+                            </div>
+                            <div class="card-footer">
+                                <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
+                                <% if (locals.user) { %>
+                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open | </a>
+                                    <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit | </a>
+                                    <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
+                                <% } else { %>
+                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open  </a>
+                                <% } %>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <% }); %>
             </div>
-            <% }); %>
+            
+        <% } else { %>
+            No Record Found !
+        <% } %>
         </div>
-        
-    <% } else { %>
-        No Record Found !
-    <% } %>
     </div>
 </div>
-
-    <!-- <table class="table table-striped table-dark" ">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Headline</th>
-                <th>Newspaper</th>
-                <th>Page Number</th>
-                <th>District</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody> 
-            <% output.forEach((entry) => { %>
-                <tr>
-                    <td><%= entry.date %></td>
-                    <td><%= entry.headline %></td>
-                    <td><%= entry.newsPaper %></td>
-                    <td><%= entry.pageNumber %></td>
-                    <td><%= entry.district %></td>
-                    <td>
-                        <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open</a>
-                        <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit</a>
-                        <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
-                    </td>
-                </tr>
-            <% }); %>
-        </tbody>
-    </table> -->
 
 <%- include('../template/footer') -%>

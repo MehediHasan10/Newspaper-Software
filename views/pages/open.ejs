@@ -42,12 +42,16 @@
         
         
         
-        <div class="text-center" style="display: inline-block;position: relative;">
+        <div class="text-center" style="position: relative">
             <img class="img-fluid" id="test" src="<%= output.image %>" alt="">
-            
-
-            
+            <br>
+            <a href="<%= output.image %>" download>
+                <button class="btn1">
+                    Download This News 
+                </button>
+            </a>
         </div>
+        
         <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="../add-download-btn.js"></script>  -->
         
@@ -58,28 +62,6 @@
     </div>
 </div>
 
-
-<!-- <script>
-    var text = "DOWNLOAD";
-    var className = "btn";
-
-    $("#test").addDownloadBtn(text, className);
-
-</script> -->
-
-
 <%- include('../template/footer') -%>
     
-  <script>
-    var text = "DOWNLOAD";
-    var className = "btn";
 
-    $("#test").addDownloadBtn(text, className);
-  </script>
-<!-- <script src="../../public/Download-Button-Image/add-download-btn.js"></script>
-<script>
-    var text = "DOWNLOAD";
-    var className = "btn";
-
-    $("#test").addDownloadBtn(text, className);
-</script> -->

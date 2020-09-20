@@ -14,7 +14,7 @@ body{
 }
 
 nav{
-    background: #21561ffa;
+    background: #3cb371;
     /* background-image: linear-gradient(#2F363F, #A4B0BD); */
 }
 
@@ -103,29 +103,38 @@ form h2{
 }
 
 /* ------------------------*/
+.indexbtn {
+  background-color: red;
+}
 
-
-.btn {
-  padding: 5px 10px;
-  font-size: 16px;
-  border-radius: 3px;
-  border: solid 1px #C0392B;
-  background-color: #E74C3C;
-  text-decoration: none;
+.btn1 {
+  position: absolute;
+  top: 4.5%;
+  left: 62.5%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: #f51a02ba;
   color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
 }
-.btn:hover {
-  opacity: .9;
+.btn1:hover {
+  background-color: red;
 }
-.btn:active {
+.btn1:active {
   opacity: 1;
 }
-
   
 /*----------------------------------------------------------------*/
-/**
- * Expands an element to fit its container
- */
+/*
+Expands an element to fit its container
+*/
+
  html {
   box-sizing: border-box;
   color: #444;

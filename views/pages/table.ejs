@@ -4,21 +4,6 @@
 
 <div class="tableNews">
 
-    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner" style="height: 300px;">
-          <div class="carousel-item active">
-            <img class="d-block w-100" src="/images/home.jpg" alt="First slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="/images/home.jpg" alt="Second slide">
-          </div>
-          <div class="carousel-item">
-            <img class="d-block w-100" src="/images/home.jpg" alt="Third slide">
-          </div>
-        </div>
-    </div> --> 
-
-
     <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
         <h1 class="text-center" style='padding-top:3em; color:rgba(34, 37, 42, 0.8)ite;'>Today's News</h1>
         <% if(output.length > 0) { %>
@@ -64,34 +49,5 @@
     </div>
 </div>
 
-
-    <!-- <table class="table table-striped table-dark" ">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Headline</th>
-                <th>Newspaper</th>
-                <th>Page Number</th>
-                <th>District</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% output.forEach((entry) => { %>
-                <tr>
-                    <td><%= entry.date %></td>
-                    <td><%= entry.headline %></td>
-                    <td><%= entry.newsPaper %></td>
-                    <td><%= entry.pageNumber %></td>
-                    <td><%= entry.district %></td>
-                    <td>
-                        <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open</a>
-                        <a href="/edit/<%= entry.id %>" style="text-decoration:none;">Edit</a>
-                        <a href="/delete/<%= entry.id %>" style="text-decoration:none;">Delete</a>
-                    </td>
-                </tr>
-            <% }); %>
-        </tbody>
-    </table> -->
 
 <%- include('../template/footer') -%>
