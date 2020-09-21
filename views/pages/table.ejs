@@ -1,8 +1,7 @@
 <%- include('../template/header') -%>
 <%- include('../template/navbar') -%>
-<%- include('../template/sidebar') -%>
 
-<div class="tableNews">
+<div class="tableNews" style="height:100vh">
 
     <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
         <h1 class="text-center" style='padding-top:3em; color:rgba(34, 37, 42, 0.8)ite;'>Today's News</h1>
@@ -31,10 +30,13 @@
                             <div class="card-footer" class="text-center">
                                 <% if (locals.user) { %>
                                     <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>
+
                                     <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>
+
                                     <a href="/delete/<%= entry.id %>" class="btn btn-danger"  style="text-decoration:none;"> <i class="fa fa-trash"></i> Delete</a>
+
                                 <% } else { %>
-                                    <a href="/open/<%= entry.id %>" style="text-decoration:none;">Open  </a>
+                                    <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i>Open  </a>
                                 <% } %>
                             </div>
                         </div>

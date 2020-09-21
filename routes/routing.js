@@ -11,7 +11,9 @@ const {requireAuth, checkUser} = require("../middleware/authMiddleware");
 
 const multer = require("multer");
 const path = require("path");
-const puppeteer = require("puppeteer");
+
+let pdf = require("html-pdf");
+let ejs = require("ejs");
 
 //multer setup for news image
 var storage = multer.diskStorage({
@@ -79,8 +81,6 @@ const createToken = (id) => {
  // Route and Controller Actions
 
 //@route  -  GET /
-//@desc   -  a route to the home page.
-//@access -  public
 router.get("/", (req, res) => {
     res.render("pages/index");
     //res.send("This is home page.");
@@ -88,8 +88,6 @@ router.get("/", (req, res) => {
 
 
 //@route  -  GET /addForm
-//@desc   -  a route to the add page
-//@access -  public
 router.get("/addForm", requireAuth, async (req, res) => {
     try {
         const newspaper = await NewspaperModel.find({});
@@ -101,13 +99,8 @@ router.get("/addForm", requireAuth, async (req, res) => {
 
 
 //@route  - POST /addForm
-//@desc   - data fetching from the add page
-//@access - private
 router.post("/addForm",upload, async (req, res, next) => {
-    //console.log("file",req.file);
-    //console.log(req.body)
     const path = req.file && req.file.path;
-    //console.log(path);
     if(path){
         const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
         console.log(newspaper);
@@ -136,14 +129,10 @@ router.post("/addForm",upload, async (req, res, next) => {
 
 
 //@route  -  GET /addNewsPaper
-//@desc   -  a route to the addNewsPaper page
-//@access -  private
 router.get("/addNewsPaper", requireAuth, (req, res) => res.render("pages/addNewsPaper"));
 
 
 //@route  - POST /addNewsPaper
-//@desc   - data fetching from the addNewspapaer page
-//@access - private
 router.post("/addNewsPaper", upload2, async (req, res, next) =>{
     const path = req.file && req.file.path;
     if(path){
@@ -164,8 +153,6 @@ router.post("/addNewsPaper", upload2, async (req, res, next) =>{
 })
 
 //@route  -  GET /showTable
-//@desc   -  a route to the the display page
-//@access -  public
 router.get("/showTable", async (req, res) => {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -187,7 +174,6 @@ router.get("/showTable", async (req, res) => {
 
 
 //@route  - GET/ archieve
-
 router.get("/archieve", async (req, res) => {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
@@ -213,8 +199,6 @@ router.get("/archieve", async (req, res) => {
 
 
 //@route  -  GET /showTable/id
-//@desc   -  a route to the the display page
-//@access -  public
 router.get("/open/:id", async (req, res) => {
     try {
         const tableDataById = await newsModel.findById(req.params.id);
@@ -225,10 +209,49 @@ router.get("/open/:id", async (req, res) => {
     }
 });
 
+//@route - GET /generate PDF
+router.get("/generateReport/:id", async (req, res) => {
+
+    const tableDataById = await newsModel.findById(req.params.id);
+    // console.log("sjdfhbsj",tableDataById);
+    ejs.renderFile(path.join(__dirname, '../views/pages/', "pdf.ejs"), {output:tableDataById}, (err, data) => {
+        
+        if (err) {
+            // console.log("error",err);
+            res.send(err);
+        } else {
+            console.log("xd",__dirname);
+
+            var assesPath = path.join(__dirname,'../public/');
+            console.log("assespath",assesPath);
+            assesPath = assesPath.replace(new RegExp(/\\/g), '/');
+            var options = {
+                "height": "11.25in",
+                "width": "8.5in",
+                "header": {
+                    "height": "20mm"
+                },
+                "footer": {
+                    "height": "20mm",
+                },
+                "base": "file:///" + assesPath
+            };
+            pdf.create(data, options).toBuffer(function (err, buffer) {
+                if (err) {
+                    res.send(err);
+                } else {    
+                    res.type('pdf');
+                    res.end(buffer,'binary')
+                    // res.send("File created successfully");
+                }
+            });
+
+        }
+    });
+});
+
 
 //@route  -  GET /edit/:id
-//desc    - 
-//access  -  public
 router.get('/edit/:id', async (req, res) => {
     try {
         const editData = await newsModel.findById(req.params.id);
@@ -240,8 +263,6 @@ router.get('/edit/:id', async (req, res) => {
 
 
 //@route  -  POST /update/id
-//@desc   -  a route to a specific id, which value is updated
-//@access -  public
 router.post("/update/:id",upload, async (req, res) => {
     var path = req.file && req.file.path;
     if(path){
@@ -256,7 +277,6 @@ router.post("/update/:id",upload, async (req, res) => {
             tableUpdates.date = req.body.date;
             tableUpdates.image = imagePath;
             const tableUpdatesSave = await tableUpdates.save();
-            //console.log(tableUpdatesSave);
             res.redirect('/showTable');
         } catch (err) {
             console.log(`ERROR : ${err}`);
@@ -282,8 +302,6 @@ router.post("/update/:id",upload, async (req, res) => {
 
 
 //@route  -  DELETE /id
-//@desc   -  a route to a specific id, which value is deleted
-//@access -  public
 router.get("/delete/:id", async (req, res) => {
     try {
         const tableDelete = await newsModel.findById(req.params.id);
@@ -296,8 +314,6 @@ router.get("/delete/:id", async (req, res) => {
 
 
 //@route  -  POST /filterNews
-//@desc   -  a route to filter the news
-//@access -  public
 router.post("/filterNews", async (req, res) => {
     var nPaper = req.body.newsPaper;
     var dName = req.body.district;
@@ -353,19 +369,7 @@ router.post("/filterNews", async (req, res) => {
     }
 });
 
-//pdfGeneration
-// router.get('/pdfGenerate', async (req, res) => {
-//     try {
-//             const browser = await puppeteer.launch()
-//             const page = await browser.newPage()
-//             await page.goto('https://www.medium.com')
-//             await page.pdf({path: 'medium.pdf', format: 'A4'});    
-//             await browser.close()
-        
-//     } catch (err) {
-//         console.log(err);
-//     }
-// })
+
 
 //Auth-Routes
 

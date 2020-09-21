@@ -17,48 +17,38 @@
 
         </h1>
 
-        <div style="border-style: solid; margin-bottom: 20px; padding-top: 10px; padding-left: 120px; margin-top: 30px;">
+        <div style=" margin-bottom: 20px; padding-bottom: 5px; padding-top: 10px; margin-top: 30px; background-color: #ffffffa6; box-shadow: 2px 2px 12px black;" class="text-center">
             <h2 class="text-center mb-4">
-                <%= output.headline %>
+                <span style="font-family:'Lucida Sans'; font-weight:bold; color:#254c2a">News Headline: </span><%= output.headline %>
             </h2>
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <h5>
-                        <b>Date: </b><%= output.date.toISOString().split('T')[0] %>
-                    </h5>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>
-                        <b>District: </b><%= output.district %>
-                    </h5>
-                </div>
-                <div class="col-md-4 text-center">
-                    <h5>
-                        <b>Page Number: </b><%= output.pageNumber %>
-                    </h5>
-                </div>
+            <div >
+                <span style="font-size: 20px; font-weight:bold"> <%= output.date.toISOString().split('T')[0] %>, <%= output.district %> </span> <br>
+                <span style="font-size: 20px; font-weight:bold"> পৃষ্ঠা নংঃ </span> <span style="font-size: 15px; font-weight:bold"><%= output.pageNumber %>   </span>
+                <br>
+                <a href="<%= output.image %>" download>
+                    <button class="btn btn-info" style="background-image: linear-gradient(45deg, #06a014, #28ff00b0)">
+                        Download News 
+                    </button>
+                </a>
+                <br>
             </div>
         </div>
-        
-        
         
         <div class="text-center" style="position: relative">
             <img class="img-fluid" id="test" src="<%= output.image %>" alt="">
             <br>
-            <a href="<%= output.image %>" download>
-                <button class="btn1">
-                    Download This News 
-                </button>
-            </a>
+            
         </div>
-        
-        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="../add-download-btn.js"></script>  -->
-        
-        <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
+
+        <!-- Social Media Sharing -->
+
+        <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
             Share on Facebook
-        </a> 
-        
+        </a> -->
+ 
+            <button class="btn btn-light">
+                <a href="/generateReport/<%= output.id %>">Download Pdf</a>
+            </button> 
     </div>
 </div>
 
