@@ -4,14 +4,14 @@
 <div class="tableNews">
     <div style="margin: 3rem";>
         <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
-            <h1 class="text-center" style='margin-top:2em'>Archive News</h1>
+            <h1 class="text-center" style='margin-top:1.5em; margin-bottom: 10px; font-family: "Ubuntu", sans-serif; color: darkcyan;'>Archive News</h1>
     
-            <form method="post" action="/filterNews" style="border-style: outset; margin-bottom: 20px; padding-top: 10px; padding-left: 120px;">
+            <form method="post" action="/filterNews" style="box-shadow: 2px 2px 12px black; margin-bottom: 20px; padding-top: 25px; padding-left: 120px;">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-12">
                         <div class="form-group">
                             <label >Newspaper Name</label> <br>
-                            <select name="newsPaper">
+                            <select class="form-control" name="newsPaper">
                                 <option value="">Choose a Newspaper</option>
                                 <% if(newspaper.length > 0) { %>
                                     <% newspaper.forEach((paper) => { %>
@@ -24,11 +24,12 @@
                         </div>                                      
                     </div>
                 
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-12">
                         <div class="form-group">
                             <label >District Name</label><br>
-                            <select name="district">
+                            <select class="form-control" name="district">
                                 <option value="">Choose a District</option>
+                                <option value="সারাদেশ">সারাদেশ</option>
                                 <option value="কক্সবাজার">কক্সবাজার</option>
                                 <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
                                 <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
@@ -97,14 +98,14 @@
                         </div>
                     </div>
     
-                    <div class="col-md-3">
+                    <div class="col-md-3 col-sm-12">
                         <div class="form-group">
                             <label for="validationDefault05">Date</label>
                             <input type="date" class="form-control" id="validationDefault05" name="date" placeholder="Enter a date">
                         </div>
                     </div>
                     
-                    <div class="col-md-3" style="margin-top:30px;">
+                    <div class="col-md-3  col-sm-12" style="margin-top:30px;">
                         <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
                     </div>                
                 </div>
@@ -113,36 +114,37 @@
             <% if(output.length > 0) { %>
             <div class="row">
                 <% output.forEach((entry) => { %>
-                <div class="col-md-4" style="margin-bottom: 10px;">                
-                    <div class="card-deck">
-                        <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
-                            <div class="card-header text-center" style="font-weight:bold;">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <img class="card-img-top" style = "width:100px; height:50px " src="<%= entry.newspapers[0].logo %>">
-                                        <!-- <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span> -->
+                    <a href="/open/<%= entry.id %>" style="text-decoration: none;">
+                        <div class="col-md-4" style="margin-bottom: 10px;">                
+                            <div class="card-deck">
+                                <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
+                                    <div class="card-header text-center" style="font-weight:bold;">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <img class="card-img-top" style = "width:100px; height:50px " src="<%= entry.newspapers[0].logo %>">
+                                                <!-- <span class="ml-2"><%= entry.newspapers[0].newsPaperName %></span> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="text-align: justify; font-family: myFirstFont"><%= entry.headline %></h5>
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        
+                                        <% if (locals.user) { %>
+                                            <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i>Open  </a>
+                                            <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"><i class="fa fa-edit"></i>Edit  </a>
+                                            <a href="/delete/<%= entry.id %>" class="btn btn-danger" style="text-decoration:none;"><i class="fa fa-trash"></i>Delete</a>
+                                        <% } else { %>
+                                            <a href="#"  style="text-decoration:none;"><span style="color:black; font-family: myFirstFont" ><%= entry.date.toISOString().split('T')[0] %> , <%= entry.district %></span></a>
+
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
-                            <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
-                            <div class="card-body">
-                                <h5 class="card-title" style="text-align: justify;"><%= entry.headline %></h5>
-                                <h6 class="card-text">Date: <%= entry.date.toISOString().split('T')[0] %></h6>
-                                <h6 class="card-text">District: <%= entry.district %></h6>
-                            </div>
-                            <div class="card-footer">
-                                <!-- <small class="text-muted">Last updated 3 mins ago</small> -->
-                                <% if (locals.user) { %>
-                                    <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i>Open  </a>
-                                    <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"><i class="fa fa-edit"></i>Edit  </a>
-                                    <a href="/delete/<%= entry.id %>" class="btn btn-danger" style="text-decoration:none;"><i class="fa fa-trash"></i>Delete</a>
-                                <% } else { %>
-                                    <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i>Open  </a>
-                                <% } %>
-                            </div>
                         </div>
-                    </div>
-                </div>
+                    </a>
                 <% }); %>
             </div>
             

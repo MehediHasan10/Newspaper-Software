@@ -2,6 +2,12 @@ body{
   background-color:#ffffff;  
 }
 
+@font-face {
+  font-family: myFirstFont;
+  src: url(../fonts/ShorifJonota/LiShorifJonotaUnicode.ttf);
+}
+
+
 .tableNews{
   background-image: url("../images/khet.jpg");
   background-repeat: no-repeat;
@@ -103,10 +109,10 @@ form h2{
 }
 
 /* ------------------------*/
-/* .indexbtn {
+.indexbtn {
   background-color: red;
 }
-
+/*
 .btn1 {
   position: absolute;
   top: 4.5%;
