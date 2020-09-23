@@ -220,32 +220,35 @@ router.get("/generateReport/:id", async (req, res) => {
             // console.log("error",err);
             res.send(err);
         } else {
-            console.log("xd",__dirname);
-
             var assesPath = path.join(__dirname,'../public/');
-            console.log("assespath",assesPath);
             assesPath = assesPath.replace(new RegExp(/\\/g), '/');
+
             var options = {
                 "height": "11.25in",
                 "width": "8.5in",
                 "header": {
-                    "height": "20mm"
+                    "height": "20mm",
                 },
                 "footer": {
                     "height": "20mm",
                 },
                 "base": "file:///" + assesPath
             };
-            pdf.create(data, options).toBuffer(function (err, buffer) {
-                if (err) {
-                    res.send(err);
-                } else {    
-                    res.type('pdf');
-                    res.end(buffer,'binary')
-                    // res.send("File created successfully");
-                }
-            });
+            // pdf.create(data, options).toBuffer(function (err, buffer) {
+            //     if (err) {
+            //         res.send(err);
+            //     } else {    
+            //         res.type('pdf');
+            //         res.end(buffer,'binary')
+            //         // res.send("File created successfully");
+            //     }
+            // });
 
+            pdf.create(data, options).toStream(function (err, stream) {
+                if (err) return res.send(err);
+                res.type('pdf');
+                stream.pipe(res);
+            });
         }
     });
 });

@@ -34,8 +34,6 @@ app.get("*", checkUser);
 const indexRouter = require("./routes/routing");
 app.use("/", indexRouter);
 
-
-
 // set up public folder
 app.use(express.static("./public"));
 
