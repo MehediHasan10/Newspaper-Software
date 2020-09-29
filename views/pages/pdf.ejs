@@ -1,21 +1,46 @@
-<div class="container">
-    <div class="row">
+<style>
+.flex-container {
+    display: flex;
+    
+    justify-content: center
+}
+.center {
+    text-align: center;
+}
+.inline-block-child {
+  display: inline-block;
+}
 
-        <!-- <div class="col-md-4">
-            <img class="card-img-top"  src="images/bdlogo.png" style="width:80px; height: 80px;">
-        </div> -->
-    
-        <div class="col-md-4">
-            <img class="card-img-top"  src="<%= output.newspapers[0].logo %>" style="width:220px; height: 100px;"> 
-            <h1><%= output.newspapers[0].newsPaperName %></h1>
-        </div>
-    
-        <!-- <div class="col-md-4">
-            <img src="images/ais.png" style="width:80px; height: 80px;">
-        </div> -->
-    
-        <div class="text-center">
-            <img class="img-fluid" id="test" src="<%= output.image %>" alt="">
-        </div>
+
+</style>
+
+<div class="center">
+    <div class='child inline-block-child'>
+        <img src="images/bdlogo.png" style="width:80px; height: 80px; margin-right: 3em">
+    </div>
+
+    <div class='child inline-block-child'>
+        <img src="<%= dirname %>/../public/<%= output.newspapers[0].logo %>" style="width:250px; height: 60px;"> 
+    </div>
+
+    <div class='child inline-block-child'>
+        <img src="images/ais.png" style="width:80px; height: 80px; margin-left: 3em;">
+    </div>   
+</div>
+
+<div style="margin-top: 5px; padding-top: 10px; background-color: #ffffffa6; box-shadow: 1px 1px 10px black;" class="center">
+    <div >
+        <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> <%= output.date.toISOString().split('T')[0] %>, <%= output.district %> </span> <br>
+        <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> পৃষ্ঠা নংঃ </span> <span style="font-size: 15px; font-weight:bold"><%= output.pageNumber %></span>
+        <br>
+        <br>
     </div>
 </div>
+
+<div class="center">
+    <img style="width:400px; height: auto; border: 1px solid green; margin-top: 30px" src="<%= dirname %>/../public/<%= output.image %>" alt="">
+</div>
+
+
+
+

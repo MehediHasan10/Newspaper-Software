@@ -1,0 +1,36 @@
+<style>
+    /* .flex-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center
+    } */
+    .center {
+        text-align: center;
+        /* border: 3px solid green; */
+    }
+</style>
+    
+    
+    
+<div>
+    <div>
+        <img src="images/bdlogo.png" style="width:50px; height: 50px; float: left">
+    </div>
+
+    <div>
+        <img src="<%= output.newspapers[0].logo %>" style="width:220px; height: 100px; float:left; margin-left: 8em; "> 
+    </div>
+
+    <div>
+        <img src="images/ais.png" style="width:50px; height: 50px; float: right">
+    </div>   
+</div>
+
+<div>
+    <span style="font-size: 20px; font-family: myFirstFont"> <%= output.date.toISOString().split('T')[0] %>, <%= output.district %> </span> <br>
+    <span style="font-size: 20px; font-family: myFirstFont"> পৃষ্ঠা নংঃ </span> <span style="font-size: 20px; font-weight:bold"><%= output.pageNumber %></span>
+</div>
+
+<div class="center">
+    <img style="width:400px; height: 300px; border: 1px solid green" src="<%= output.image %>" alt="">
+</div>

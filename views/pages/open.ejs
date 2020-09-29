@@ -23,7 +23,7 @@
             </h2>
             <div >
                 <span style="font-size: 20px; font-family: myFirstFont"> <%= output.date.toISOString().split('T')[0] %>, <%= output.district %> </span> <br>
-                <span style="font-size: 20px; font-family: myFirstFont"> পৃষ্ঠা নংঃ </span> <span style="font-size: 15px; font-weight:bold"><%= output.pageNumber %>   </span>
+                <span style="font-size: 20px; font-family: myFirstFont"> পৃষ্ঠা নংঃ </span> <span style="font-size: 20px; font-weight:bold"><%= output.pageNumber %></span>
                 <br>
                 <a href="<%= output.image %>" download>
                     <button class="btn btn-info" style="background-image: linear-gradient(45deg, #06a014, #28ff00b0)">
@@ -45,10 +45,12 @@
         <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
             Share on Facebook
         </a> -->
- 
-        <button class="btn btn-light">
-            <a href="/generateReport/<%= output.id %>">Download Pdf</a>
-        </button> 
+        
+        <a href="/generateReport/<%= output.id %>">
+            <button class="btn btn-info" style="background-image: linear-gradient(180deg, #06a014, #28ff00b0)">
+                Download as Pdf
+            </button> 
+        </a>
     </div>
 </div>
 

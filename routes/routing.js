@@ -78,7 +78,7 @@ const createToken = (id) => {
   });
 };
 
- // Route and Controller Actions
+// Route and Controller Actions
 
 //@route  -  GET /
 router.get("/", (req, res) => {
@@ -103,7 +103,7 @@ router.post("/addForm",upload, async (req, res, next) => {
     const path = req.file && req.file.path;
     if(path){
         const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
-        console.log(newspaper);
+        // console.log(newspaper);
         var imagePath = "/myUploads/" + req.file.filename;
         const data = new newsModel({
             headline: req.body.headline,
@@ -175,6 +175,7 @@ router.get("/showTable", async (req, res) => {
 
 //@route  - GET/ archieve
 router.get("/archieve", async (req, res) => {
+    console.log(__dirname);
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -214,7 +215,7 @@ router.get("/generateReport/:id", async (req, res) => {
 
     const tableDataById = await newsModel.findById(req.params.id);
     // console.log("sjdfhbsj",tableDataById);
-    ejs.renderFile(path.join(__dirname, '../views/pages/', "pdf.ejs"), {output:tableDataById}, (err, data) => {
+    ejs.renderFile(path.join(__dirname, '../views/pages/', "pdf.ejs"), {output:tableDataById, dirname:__dirname}, (err, data) => {
         
         if (err) {
             // console.log("error",err);
@@ -252,7 +253,6 @@ router.get("/generateReport/:id", async (req, res) => {
         }
     });
 });
-
 
 //@route  -  GET /edit/:id
 router.get('/edit/:id', async (req, res) => {
@@ -372,6 +372,11 @@ router.post("/filterNews", async (req, res) => {
     }
 });
 
+//@route  -  GET /test
+router.get("/test", (req, res) => {
+    res.render("pages/test");
+    //res.send("This is home page.");
+});
 
 
 //Auth-Routes

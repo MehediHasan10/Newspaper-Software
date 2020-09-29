@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     },
 });
 
-//fire a function before doc saved to the db
+//fire a function befor e doc saved to the db
 //hashing the passowrd
 
 userSchema.pre('save',async function(next){
