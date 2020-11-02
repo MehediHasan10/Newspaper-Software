@@ -108,7 +108,7 @@ router.post("/addForm",upload, async (req, res, next) => {
         const data = new newsModel({
             headline: req.body.headline,
             pageNumber: req.body.pageNumber,
-            newsPaper: req.body.newsPaper,
+            // newsPaper: req.body.newsPaper,
             district: req.body.district,
             date: req.body.date,
             image: imagePath,
@@ -120,7 +120,7 @@ router.post("/addForm",upload, async (req, res, next) => {
         } catch (err) {
             console.log(`ERROR : ${err}`);
         }
-    }else{
+    } else {
         
         console.log("file not uploaded successfully");
     }
@@ -222,6 +222,7 @@ router.get("/generateReport/:id", async (req, res) => {
             res.send(err);
         } else {
             var assesPath = path.join(__dirname,'../public/');
+            console.log(assesPath);
             assesPath = assesPath.replace(new RegExp(/\\/g), '/');
 
             var options = {
@@ -258,7 +259,11 @@ router.get("/generateReport/:id", async (req, res) => {
 router.get('/edit/:id', async (req, res) => {
     try {
         const editData = await newsModel.findById(req.params.id);
-        res.render('pages/edit', {output:editData});
+        const newspaper = await NewspaperModel.find();
+        res.render('pages/edit', {
+            output:editData,
+            paperOutput: newspaper
+        });
     } catch (err) {
         console.log(`Error : ${err}`);
     }
@@ -271,6 +276,7 @@ router.post("/update/:id",upload, async (req, res) => {
     if(path){
         try {
             var imagePath = "/myUploads/" + req.file.filename;
+
             // console.log(req.body);
             const tableUpdates = await newsModel.findById(req.params.id);
             tableUpdates.headline = req.body.headline;
@@ -280,7 +286,7 @@ router.post("/update/:id",upload, async (req, res) => {
             tableUpdates.date = req.body.date;
             tableUpdates.image = imagePath;
             const tableUpdatesSave = await tableUpdates.save();
-            res.redirect('/showTable');
+            res.redirect('/archieve');
         } catch (err) {
             console.log(`ERROR : ${err}`);
         }

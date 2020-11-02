@@ -15,7 +15,22 @@
 
                         <div class="form-group">
                             <label >Newspaper</label>
-                            <input type="text" class="form-control"  name="newsPaper" value="<%=output.newsPaper%>">
+                            <!-- <input type="text" class="form-control"  name="newsPaper" value="<%=output.newsPaper%>"> -->
+                            <select name="newsPaper" required>
+                                <option value="<%= output.newspapers[0]._id %>"><%= output.newspapers[0].newsPaperName %></option>
+                                <% if(paperOutput.length > 0) { %>
+                                    <% paperOutput.forEach((newspaper) => { %>
+                                        <option value=<%= newspaper._id %> > <%= newspaper.newsPaperName %> </option>
+                                    <% }); %>
+                                <% } else { %>
+                                    No Record Found !
+                                <% } %>
+
+                                    
+                                
+                            </select>
+
+                            
                         </div>
 
                         <div class="form-group">
@@ -24,8 +39,75 @@
                         </div>
 
                         <div class="form-group">
-                            <label >District</label>
-                            <input type="text" class="form-control"  name="district" value="<%=output.district%>">
+                            <label >District Name</label><br>
+                            <select name="district" required>
+                                <option value="<%=output.district%>"><%=output.district%></option>
+                                <option value="সারাদেশ">সারাদেশ</option>
+                                <option value="কক্সবাজার">কক্সবাজার</option>
+                                <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
+                                <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
+                                <option value="কুমিল্লা">কুমিল্লা</option>
+                                <option value="কুষ্টিয়া">কুষ্টিয়া</option>
+                                <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
+                                <option value="খুলনা">খুলনা</option>
+                                <option value="গাইবান্ধা">গাইবান্ধা</option>
+                                <option value="গাজীপুর">গাজীপুর</option>
+                                <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
+                                <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                                <option value="চাঁদপুর">চাঁদপুর</option>
+                                <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
+                                <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
+                                <option value="জয়পুরহাট">জয়পুরহাট</option>
+                                <option value="জামালপুর">জামালপুর</option>
+                                <option value="ঝালকাঠি">ঝালকাঠি</option>
+                                <option value="ঝিনাইদহ">ঝিনাইদহ</option>
+                                <option value="টাঙ্গাইল">টাঙ্গাইল</option>
+                                <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
+                                <option value="ঢাকা">ঢাকা</option>
+                                <option value="দিনাজপুর">দিনাজপুর</option>
+                                <option value="নওগাঁ">নওগাঁ</option>
+                                <option value="নড়াইল">নড়াইল</option>
+                                <option value="নরসিংদি">নরসিংদি</option>
+                                <option value="নাটোর">নাটোর</option>
+                                <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
+                                <option value="নীলফামারি">নীলফামারি</option>
+                                <option value="নেত্রকোনা">নেত্রকোনা</option>
+                                <option value="নোয়াখালি">নোয়াখালি</option>
+                                <option value="পঞ্চগড়">পঞ্চগড়</option>
+                                <option value="পটুয়াখালি">পটুয়াখালি</option>
+                                <option value="পাবনা">পাবনা</option>
+                                <option value="পিরোজপুর">পিরোজপুর</option>
+                                <option value="ফরিদপুর">ফরিদপুর</option>
+                                <option value="ফেনী">ফেনী</option>
+                                <option value="বগুড়া">বগুড়া</option>
+                                <option value="বরগুনা">বরগুনা</option>
+                                <option value="বরিশাল">বরিশাল</option>
+                                <option value="বাগেরহাট">বাগেরহাট</option>
+                                <option value="বান্দরবান">বান্দরবান</option>
+                                <option value="ব্রাহ্মণবাড়িয়া">ব্রাহ্মণবাড়িয়া</option>
+                                <option value="ভোলা">ভোলা</option>
+                                <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                                <option value="মাগুরা">মাগুরা</option>
+                                <option value="মাদারিপুর">মাদারিপুর</option>
+                                <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
+                                <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
+                                <option value="মেহেরপুর">মেহেরপুর</option>
+                                <option value="মৌলভীবাজার">মৌলভীবাজার</option>
+                                <option value="যশোর">যশোর</option>
+                                <option value="রংপুর">রংপুর</option>
+                                <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
+                                <option value="রাজবাড়ি">রাজবাড়ি</option>
+                                <option value="রাজশাহী">রাজশাহী</option>
+                                <option value="লক্ষ্মীপুর">লক্ষ্মীপুর</option>
+                                <option value="লালমনিরহাট">লালমনিরহাট</option>
+                                <option value="শরিয়তপুর">শরিয়তপুর</option>
+                                <option value="শেরপুর">শেরপুর</option>
+                                <option value="সাতক্ষীরা">সাতক্ষীরা</option>
+                                <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
+                                <option value="সিলেট">সিলেট</option>
+                                <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
+                                <option value="হবিগঞ্জ">হবিগঞ্জ</option>
+                            </select> 
                         </div>
 
                         <div class="form-group">

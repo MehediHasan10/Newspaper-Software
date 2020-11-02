@@ -21,7 +21,7 @@
                                     <option value="" disabled selected hidden>Choose a Newspaper</option>
                                     <% if(output.length > 0) { %>
                                         <% output.forEach((newspaper) => { %>
-                                            <option value=<%= newspaper._id %> ><%= newspaper.newsPaperName %></option>
+                                            <option value=<%= newspaper._id %> > <%= newspaper.newsPaperName %> </option>
                                         <% }); %>
                                     <% } else { %>
                                         No Record Found !
