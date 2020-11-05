@@ -103,7 +103,7 @@ router.post("/addForm",upload, async (req, res, next) => {
     const path = req.file && req.file.path;
     if(path){
         const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
-        // console.log(newspaper);
+        console.log(newspaper);
         var imagePath = "/myUploads/" + req.file.filename;
         const data = new newsModel({
             headline: req.body.headline,
@@ -152,6 +152,7 @@ router.post("/addNewsPaper", upload2, async (req, res, next) =>{
     }
 })
 
+
 //@route  -  GET /showTable
 router.get("/showTable", async (req, res) => {
     var today = new Date();
@@ -165,7 +166,7 @@ router.get("/showTable", async (req, res) => {
             date:{
                 $gte: today,
             }
-        })
+        });
         res.render('pages/table', {output:tableData}); 
     } catch (err) {
         console.log(`ERROR : ${err}`);
@@ -278,9 +279,11 @@ router.post("/update/:id",upload, async (req, res) => {
             var imagePath = "/myUploads/" + req.file.filename;
 
             // console.log(req.body);
+            const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
             const tableUpdates = await newsModel.findById(req.params.id);
+
             tableUpdates.headline = req.body.headline;
-            tableUpdates.newsPaper = req.body.newsPaper;
+            tableUpdates.newpapers = newspaper;
             tableUpdates.pageNumber = req.body.pageNumber;
             tableUpdates.district = req.body.district;
             tableUpdates.date = req.body.date;
@@ -291,17 +294,21 @@ router.post("/update/:id",upload, async (req, res) => {
             console.log(`ERROR : ${err}`);
         }
     }else{
+
         try {
             // console.log(req.body);
+            const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
             const tableUpdates = await newsModel.findById(req.params.id);
+
             tableUpdates.headline = req.body.headline;
-            tableUpdates.newsPaper = req.body.newsPaper;
+            tableUpdates.newpapers = newspaper;
             tableUpdates.pageNumber = req.body.pageNumber;
             tableUpdates.district = req.body.district;
             tableUpdates.date = req.body.date;
             const tableUpdatesSave = await tableUpdates.save();
             //console.log(tableUpdatesSave);
-            res.redirect('/showTable');
+            res.redirect('/archieve');
+
         } catch (err) {
             console.log(`ERROR : ${err}`);
         }
@@ -315,7 +322,7 @@ router.get("/delete/:id", async (req, res) => {
     try {
         const tableDelete = await newsModel.findById(req.params.id);
         const tableDeleteById = await tableDelete.remove();
-        res.redirect("/showTable");
+        res.redirect("/archieve");
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }

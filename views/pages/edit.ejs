@@ -17,17 +17,14 @@
                             <label >Newspaper</label>
                             <!-- <input type="text" class="form-control"  name="newsPaper" value="<%=output.newsPaper%>"> -->
                             <select name="newsPaper" required>
-                                <option value="<%= output.newspapers[0]._id %>"><%= output.newspapers[0].newsPaperName %></option>
+                                <option value="<%= output.newspapers._id %>"><%= output.newspapers.newsPaperName %></option>
                                 <% if(paperOutput.length > 0) { %>
                                     <% paperOutput.forEach((newspaper) => { %>
                                         <option value=<%= newspaper._id %> > <%= newspaper.newsPaperName %> </option>
                                     <% }); %>
                                 <% } else { %>
                                     No Record Found !
-                                <% } %>
-
-                                    
-                                
+                                <% } %>                              
                             </select>
 
                             

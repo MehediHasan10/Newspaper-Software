@@ -9,7 +9,7 @@ const newsSchema = new Schema({
     district: String,
     date: Date,
     image: String,
-    newspapers: []
+    newspapers: {}
 
 });
 
