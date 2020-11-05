@@ -299,14 +299,22 @@ router.post("/update/:id",upload, async (req, res) => {
             // console.log(req.body);
             const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
             const tableUpdates = await newsModel.findById(req.params.id);
-
+        
             tableUpdates.headline = req.body.headline;
-            tableUpdates.newpapers = newspaper;
+            tableUpdates.newspapers = newspaper;
             tableUpdates.pageNumber = req.body.pageNumber;
             tableUpdates.district = req.body.district;
             tableUpdates.date = req.body.date;
+            tableUpdates.demo = newspaper
+
+            console.log("tableUpdates",newspaper,tableUpdates);
+
+            // const tableUpdatesSave = await newsModel.findByIdAndUpdate(
+            //     req.params.id,
+            //     tableUpdates 
+            // )
             const tableUpdatesSave = await tableUpdates.save();
-            //console.log(tableUpdatesSave);
+            // console.log("tableUpdatesSave",tableUpdatesSave);
             res.redirect('/archieve');
 
         } catch (err) {
