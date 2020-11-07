@@ -283,7 +283,7 @@ router.post("/update/:id",upload, async (req, res) => {
             const tableUpdates = await newsModel.findById(req.params.id);
 
             tableUpdates.headline = req.body.headline;
-            tableUpdates.newpapers = newspaper;
+            tableUpdates.newspapers = newspaper;
             tableUpdates.pageNumber = req.body.pageNumber;
             tableUpdates.district = req.body.district;
             tableUpdates.date = req.body.date;
