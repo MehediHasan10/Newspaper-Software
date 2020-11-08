@@ -28,10 +28,10 @@
                                     </div>
                                     <div class="card-footer text-center" class="text-center">
                                         <% if (locals.user) { %>
-                                            <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>
-        
-                                            <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>
-        
+                                            <a href="#"  style="text-decoration:none;"><span style="font-family: myFirstFont; color:black" ><%= entry.date.toISOString().split('T')[0] %> , <%= entry.district %></span></a>
+
+                                            <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>        
+                                            <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>        
                                             <a href="/delete/<%= entry.id %>" class="btn btn-danger"  style="text-decoration:none;"> <i class="fa fa-trash"></i> Delete</a>
         
                                         <% } else { %>
