@@ -15,7 +15,7 @@
                                     <div class="card-header text-center" style="font-weight:bold;">
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <img class="card-img-top" style = "width:100px; height:50px " src="<%= entry.newspapers.logo %>">
+                                                <img class="card-img-top" style = "width:200px; height:50px " src="<%= entry.newspapers.logo %>">
                                                 
                                             </div>
         
@@ -29,7 +29,7 @@
                                     <div class="card-footer text-center" class="text-center">
                                         <% if (locals.user) { %>
                                             <a href="#"  style="text-decoration:none;"><span style="font-family: myFirstFont; color:black" ><%= entry.date.toISOString().split('T')[0] %> , <%= entry.district %></span></a>
-
+                                            <br>
                                             <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>        
                                             <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>        
                                             <a href="/delete/<%= entry.id %>" class="btn btn-danger"  style="text-decoration:none;"> <i class="fa fa-trash"></i> Delete</a>

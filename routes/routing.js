@@ -4,6 +4,7 @@ const router = express.Router();
 const newsModel = require("../schema/addNews");
 const User = require("../schema/user");
 const NewspaperModel = require("../schema/newsLogo");
+const moment= require('moment') 
 
 //const router = require("express").Router();
 const jwt = require("jsonwebtoken");
@@ -103,17 +104,24 @@ router.post("/addForm",upload, async (req, res, next) => {
     const path = req.file && req.file.path;
     if(path){
         const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
-        console.log(newspaper);
         var imagePath = "/myUploads/" + req.file.filename;
+        const tags = req.body.tags;
+        const aTags = tags.split(',');
+        const finalTags = aTags.map(Function.prototype.call, String.prototype.trim);
+        //console.log(final);
+        //console.log(newspaper);
+        
         const data = new newsModel({
             headline: req.body.headline,
             pageNumber: req.body.pageNumber,
             // newsPaper: req.body.newsPaper,
             district: req.body.district,
+            tags: finalTags,
             date: req.body.date,
             image: imagePath,
             newspapers: newspaper
         });
+
         try {
             const newsData = await data.save();
             res.redirect('/addForm');
@@ -176,7 +184,7 @@ router.get("/showTable", async (req, res) => {
 
 //@route  - GET/ archieve
 router.get("/archieve", async (req, res) => {
-    console.log(__dirname);
+    // console.log(__dirname);
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -223,7 +231,7 @@ router.get("/generateReport/:id", async (req, res) => {
             res.send(err);
         } else {
             var assesPath = path.join(__dirname,'../public/');
-            console.log(assesPath);
+            // console.log(assesPath);
             assesPath = assesPath.replace(new RegExp(/\\/g), '/');
 
             var options = {
@@ -277,6 +285,17 @@ router.post("/update/:id",upload, async (req, res) => {
     if(path){
         try {
             var imagePath = "/myUploads/" + req.file.filename;
+            const tags = req.body.tags;
+            const aTags = tags.split(',');
+            const finalTags = aTags.map(Function.prototype.call, String.prototype.trim);
+
+            // Date 
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
+
+            today = yyyy+ '-' +mm+ '-' +dd;
 
             // console.log(req.body);
             const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
@@ -285,11 +304,18 @@ router.post("/update/:id",upload, async (req, res) => {
             tableUpdates.headline = req.body.headline;
             tableUpdates.newspapers = newspaper;
             tableUpdates.pageNumber = req.body.pageNumber;
+            tableUpdates.tags = finalTags;
             tableUpdates.district = req.body.district;
             tableUpdates.date = req.body.date;
             tableUpdates.image = imagePath;
             const tableUpdatesSave = await tableUpdates.save();
-            res.redirect('/archieve');
+
+            if(moment(req.body.date).isSameOrAfter(today) ) {
+                res.redirect('/showTable');
+            } else {
+                res.redirect('/archieve');
+            }
+
         } catch (err) {
             console.log(`ERROR : ${err}`);
         }
@@ -299,20 +325,37 @@ router.post("/update/:id",upload, async (req, res) => {
             // console.log(req.body);
             const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
             const tableUpdates = await newsModel.findById(req.params.id);
+
+            const tags = req.body.tags;
+            const aTags = tags.split(',');
+            const finalTags = aTags.map(Function.prototype.call, String.prototype.trim);
         
             tableUpdates.headline = req.body.headline;
             tableUpdates.newspapers = newspaper;
             tableUpdates.pageNumber = req.body.pageNumber;
+            tableUpdates.tags = finalTags;
             tableUpdates.district = req.body.district;
             tableUpdates.date = req.body.date;
             tableUpdates.demo = newspaper
 
-            console.log("tableUpdates",newspaper,tableUpdates);
+            // Date 
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            var yyyy = today.getFullYear();
 
-            // const tableUpdatesSave = await newsModel.findByIdAndUpdate(
-            //     req.params.id,
-            //     tableUpdates 
-            // )
+            // console.log("today",today );
+            // console.log("req",req.body.date);
+            // console.log("moment",moment(req.body.date).isSameOrAfter(today))
+            //console.log("tableUpdates",newspaper,tableUpdates);
+            today = yyyy+ '-' +mm+ '-' +dd;
+
+            if(moment(req.body.date).isSameOrAfter(today) ) {
+                res.redirect('/showTable');
+            } else {
+                res.redirect('/archieve');
+            }
+
             const tableUpdatesSave = await tableUpdates.save();
             // console.log("tableUpdatesSave",tableUpdatesSave);
             res.redirect('/archieve');
@@ -329,8 +372,29 @@ router.post("/update/:id",upload, async (req, res) => {
 router.get("/delete/:id", async (req, res) => {
     try {
         const tableDelete = await newsModel.findById(req.params.id);
-        const tableDeleteById = await tableDelete.remove();
-        res.redirect("/archieve");
+        
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
+
+        today = yyyy+ '-' +mm+ '-' +dd;
+        
+        // if(moment(req.body.date).isSameOrAfter(today) ) {
+        //     res.redirect('/showTable');
+        // } else {
+        //     res.redirect('/archieve');
+        // }
+
+        if(moment(tableDelete.date).isSameOrAfter(today) ) {
+            await tableDelete.remove();
+            res.redirect('/showTable');
+        } else {
+            await tableDelete.remove();
+            res.redirect('/archieve');
+        }
+
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
@@ -360,17 +424,33 @@ router.post("/filterNews", async (req, res) => {
                 const filterData = await newsModel.find({district: dName, date: date});
                 res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             }
+
         } else if(date === ''){
             if (nPaper === '') {
                 const filterData = await newsModel.find({district: dName});
                 res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else if (dName === ''){
-                const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                // const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                // const filterData = await newsModel.find({}).populate({
+                //     path: 'newspapers',
+                //     match: {newsPaperName: nPaper}
+                // });
+                const filterData = await newsModel.findOne({
+                    "newspapers.newsPaperName" : nPaper
+                });
                 res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             } else {
-                const filterData = await newsModel.find({district: dName, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                // const filterData = await newsModel.find({district: dName, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                // const filterData = await newsModel.find({district: dName}).populate({
+                //     path: 'newspapers',
+                //     match: {newsPaperName: nPaper}
+                // });
+                const filterData = await newsModel.findOne({
+                    "newspapers.newsPaperName" : nPaper
+                });
                 res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             }
+
         } else if (dName === ''){
             if (nPaper === '') {
                 const filterData = await newsModel.find({date: date});
@@ -382,6 +462,7 @@ router.post("/filterNews", async (req, res) => {
                 const filterData = await newsModel.find({date: date, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
                 res.render('pages/archieve', {output:filterData, newspaper: newspaper});
             }
+
         } else {
             const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}, district: dName, date: date});
             //console.log(filterData);
@@ -392,6 +473,20 @@ router.post("/filterNews", async (req, res) => {
         console.log(`Error: ${err}`);
     }
 });
+
+//@route  -  POST  /filterTag
+router.post("/filterTag", async (req, res) => {
+    var tag = req.body.tags;
+
+    try {
+        const newspaper = await NewspaperModel.find({});
+        const filterTags = await newsModel.find({tags : tag});
+
+        res.render('pages/archieve', {output:filterTags, newspaper: newspaper});
+    } catch (err) {
+        console.log(err);
+    }
+})
 
 //@route  -  GET /test
 router.get("/test", (req, res) => {

@@ -4,13 +4,19 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 const newsSchema = new Schema({
+
     headline: String,
     pageNumber: String,
     district: String,
-    date: Date,
+    tags: [String],
+    date: {
+        type: Date,
+        required: true,
+        default: Date.now
+    },
     image: String,
     newspapers: {}
-
+    
 });
 
 var news = mongoose.model("News", newsSchema);
