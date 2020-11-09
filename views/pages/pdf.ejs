@@ -30,7 +30,7 @@
 
 <div style="margin-top: 5px; padding-top: 10px; background-color: #ffffffa6; box-shadow: 1px 1px 10px black;" class="center">
     <div >
-        <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> <%= output.date.toISOString().split('T')[0] %>, <%= output.district %> </span> <br>
+        <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
         <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> পৃষ্ঠা নংঃ </span> <span style="font-size: 15px; font-weight:bold"><%= output.pageNumber %></span>
         <br>
         <br>
@@ -38,7 +38,7 @@
 </div>
 
 <div class="center">
-    <img style="width:350px; height: auto; border: 1px solid green; margin-top: 30px" src="<%= dirname %>/../public/<%= output.image %>" alt="">
+    <img style=" height: auto; max-width: 420px; border: 1px solid green; margin-top: 30px" src="<%= dirname %>/../public/<%= output.image %>" alt="">
 </div>
 
 

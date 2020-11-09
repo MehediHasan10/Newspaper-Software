@@ -22,9 +22,10 @@
                 <span style="font-family:'roboto'; font-weight:bold; color:#254c2a">News Headline: </span> <span style="font-family: myFirstFont;"><%= output.headline %></span>
             </h2>
             <div >
-                <span style="font-size: 20px; font-family: myFirstFont"> <%= output.date.toISOString().split('T')[0] %>, <%= output.district %> </span> <br>
+                <span style="font-size: 20px; font-family: myFirstFont"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
                 <span style="font-size: 20px; font-family: myFirstFont"> পৃষ্ঠা নংঃ </span> <span style="font-size: 20px; font-weight:bold"><%= output.pageNumber %></span>
                 <br>
+                <b>Tags: </b> 
                 <% output.tags.forEach((entry) => { %>
                     <span class=""> <%= entry %> </span> |
                 <% }); %>

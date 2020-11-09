@@ -87,7 +87,6 @@ router.get("/", (req, res) => {
     //res.send("This is home page.");
 });
 
-
 //@route  -  GET /addForm
 router.get("/addForm", requireAuth, async (req, res) => {
     try {
@@ -98,19 +97,17 @@ router.get("/addForm", requireAuth, async (req, res) => {
     }
 });
 
-
 //@route  - POST /addForm
 router.post("/addForm",upload, async (req, res, next) => {
     const path = req.file && req.file.path;
     if(path){
         const newspaper = await NewspaperModel.findOne({_id: req.body.newsPaper });
         var imagePath = "/myUploads/" + req.file.filename;
+
         const tags = req.body.tags;
         const aTags = tags.split(',');
-        const finalTags = aTags.map(Function.prototype.call, String.prototype.trim);
-        //console.log(final);
-        //console.log(newspaper);
-        
+        const finalTags = aTags.map(Function.prototype.call, String.prototype.trim); //Trim the values in array .
+
         const data = new newsModel({
             headline: req.body.headline,
             pageNumber: req.body.pageNumber,
@@ -135,10 +132,8 @@ router.post("/addForm",upload, async (req, res, next) => {
     
 });
 
-
 //@route  -  GET /addNewsPaper
 router.get("/addNewsPaper", requireAuth, (req, res) => res.render("pages/addNewsPaper"));
-
 
 //@route  - POST /addNewsPaper
 router.post("/addNewsPaper", upload2, async (req, res, next) =>{
@@ -160,7 +155,6 @@ router.post("/addNewsPaper", upload2, async (req, res, next) =>{
     }
 })
 
-
 //@route  -  GET /showTable
 router.get("/showTable", async (req, res) => {
     var today = new Date();
@@ -175,25 +169,25 @@ router.get("/showTable", async (req, res) => {
                 $gte: today,
             }
         });
-        res.render('pages/table', {output:tableData}); 
+        res.render('pages/table', {
+            output:tableData,
+            moment: moment
+        }); 
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
 });
 
-
 //@route  - GET/ archieve
 router.get("/archieve", async (req, res) => {
-    // console.log(__dirname);
+    
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
     today = mm + '/' + dd + '/' + yyyy;
-    //var today = new Date();
-    //console.log(today , new Date('2020-08-20'));
-    //console.log(today < new Date('2020-08-20'));
+
     try {
         const newspaper = await NewspaperModel.find({});
         const tableData = await newsModel.find({
@@ -201,19 +195,25 @@ router.get("/archieve", async (req, res) => {
                 $lt: today,
             }
         });
-        res.render('pages/archieve', {output:tableData, newspaper: newspaper});
+        res.render('pages/archieve', {
+            output:tableData, 
+            newspaper: newspaper,
+            moment: moment
+        });
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
 });
-
 
 //@route  -  GET /showTable/id
 router.get("/open/:id", async (req, res) => {
     try {
         const tableDataById = await newsModel.findById(req.params.id);
         // console.log(tableDataById);
-        res.render('pages/open', {output:tableDataById});
+        res.render('pages/open', {
+            output:tableDataById,
+            moment: moment
+        });
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
@@ -224,7 +224,7 @@ router.get("/generateReport/:id", async (req, res) => {
 
     const tableDataById = await newsModel.findById(req.params.id);
     // console.log("sjdfhbsj",tableDataById);
-    ejs.renderFile(path.join(__dirname, '../views/pages/', "pdf.ejs"), {output:tableDataById, dirname:__dirname}, (err, data) => {
+    ejs.renderFile(path.join(__dirname, '../views/pages/', "pdf.ejs"), {output:tableDataById, dirname:__dirname, moment: moment}, (err, data) => {
         
         if (err) {
             // console.log("error",err);
@@ -278,23 +278,23 @@ router.get('/edit/:id', async (req, res) => {
     }
 });
 
-
 //@route  -  POST /update/id
-router.post("/update/:id",upload, async (req, res) => {
+router.post("/update/:id", upload, async (req, res) => {
     var path = req.file && req.file.path;
+
     if(path){
         try {
             var imagePath = "/myUploads/" + req.file.filename;
+
             const tags = req.body.tags;
             const aTags = tags.split(',');
             const finalTags = aTags.map(Function.prototype.call, String.prototype.trim);
 
-            // Date 
+            // Date manipulation to get the right redirect url
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-
             today = yyyy+ '-' +mm+ '-' +dd;
 
             // console.log(req.body);
@@ -338,16 +338,11 @@ router.post("/update/:id",upload, async (req, res) => {
             tableUpdates.date = req.body.date;
             tableUpdates.demo = newspaper
 
-            // Date 
+            // Date manipulation to get the right redirect url 
             var today = new Date();
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
             var yyyy = today.getFullYear();
-
-            // console.log("today",today );
-            // console.log("req",req.body.date);
-            // console.log("moment",moment(req.body.date).isSameOrAfter(today))
-            //console.log("tableUpdates",newspaper,tableUpdates);
             today = yyyy+ '-' +mm+ '-' +dd;
 
             if(moment(req.body.date).isSameOrAfter(today) ) {
@@ -367,26 +362,18 @@ router.post("/update/:id",upload, async (req, res) => {
     
 });
 
-
 //@route  -  DELETE /id
 router.get("/delete/:id", async (req, res) => {
     try {
         const tableDelete = await newsModel.findById(req.params.id);
         
-
+        //Date manipulation to get the right redirect url
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
-
         today = yyyy+ '-' +mm+ '-' +dd;
         
-        // if(moment(req.body.date).isSameOrAfter(today) ) {
-        //     res.redirect('/showTable');
-        // } else {
-        //     res.redirect('/archieve');
-        // }
-
         if(moment(tableDelete.date).isSameOrAfter(today) ) {
             await tableDelete.remove();
             res.redirect('/showTable');
@@ -400,35 +387,46 @@ router.get("/delete/:id", async (req, res) => {
     }
 });
 
-
 //@route  -  POST /filterNews
 router.post("/filterNews", async (req, res) => {
     var nPaper = req.body.newsPaper;
     var dName = req.body.district;
     var date = req.body.date;
 
-    // console.log("data",req.body);
-    // console.log("dname:",dName);
-    // console.log('npaper:',nPaper);
-    // console.log("date:",date); 
     try {
         const newspaper = await NewspaperModel.find({});
         if(nPaper === ''){
             if(date === ''){
                 const filterData = await newsModel.find({district: dName});
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             } else if(dName === ''){
                 const filterData = await newsModel.find({date: date});
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             } else {
                 const filterData = await newsModel.find({district: dName, date: date});
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             }
 
         } else if(date === ''){
             if (nPaper === '') {
                 const filterData = await newsModel.find({district: dName});
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             } else if (dName === ''){
                 // const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}} });
                 // const filterData = await newsModel.find({}).populate({
@@ -438,7 +436,12 @@ router.post("/filterNews", async (req, res) => {
                 const filterData = await newsModel.findOne({
                     "newspapers.newsPaperName" : nPaper
                 });
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                //console.log("filter", filterData);
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             } else {
                 // const filterData = await newsModel.find({district: dName, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
                 // const filterData = await newsModel.find({district: dName}).populate({
@@ -448,26 +451,46 @@ router.post("/filterNews", async (req, res) => {
                 const filterData = await newsModel.findOne({
                     "newspapers.newsPaperName" : nPaper
                 });
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             }
 
         } else if (dName === ''){
             if (nPaper === '') {
                 const filterData = await newsModel.find({date: date});
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             } else if (date === '') {
                 const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}});
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             } else {
                 const filterData = await newsModel.find({date: date, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
-                res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+                res.render('pages/archieve', {
+                    output:filterData, 
+                    newspaper: newspaper,
+                    moment: moment
+                });
             }
 
         } else {
             const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}, district: dName, date: date});
             //console.log(filterData);
             //res.redirect('/showTable')
-            res.render('pages/archieve', {output:filterData, newspaper: newspaper});
+            res.render('pages/archieve', {
+                output:filterData, 
+                newspaper: newspaper,
+                moment: moment
+            });
         }   
     } catch (err) {
         console.log(`Error: ${err}`);
@@ -482,17 +505,16 @@ router.post("/filterTag", async (req, res) => {
         const newspaper = await NewspaperModel.find({});
         const filterTags = await newsModel.find({tags : tag});
 
-        res.render('pages/archieve', {output:filterTags, newspaper: newspaper});
+        res.render('pages/archieve', {
+            output:filterTags, 
+            newspaper: newspaper,
+            moment: moment
+        });
+        res.redirect('/archieve')
     } catch (err) {
         console.log(err);
     }
 })
-
-//@route  -  GET /test
-router.get("/test", (req, res) => {
-    res.render("pages/test");
-    //res.send("This is home page.");
-});
 
 
 //Auth-Routes
@@ -540,7 +562,6 @@ router.get('/logout', async (req, res) => {
     res.cookie("jwt", "", { maxAge:1 });
     res.redirect("/");
 });
-
 
 
 module.exports = router;
