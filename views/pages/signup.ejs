@@ -1,58 +1,62 @@
 <%- include('../template/header'); -%>
 
-<form action='/signup' class='signup-form' style='margin-top: 100px'>
-    <h2>Sign Up</h2>
-    <label for="email">Email</label>
-    <!-- We have donne some custom validation. If we use input type as "email", we can get the html5 validation instead. -->
-    <input class='signup-input' type="text" name="email" required />
-    <!-- This container is for the error message. -->
-    <div class="email error"></div>
-    
+<body>
 
-    <label for="password" class="signup-label">Password</label>
-    <!-- When we will type the password, it will show as dot in the form. input type password, make sure that. -->
-    <input class='signup-input' type="password" name="password"  required />
-    <div class="password error"></div>
-    <button class="signup-button">Sign Up</button>
-</form>
+    <form action='/signup' class='signup-form' style='margin-top: 100px'>
+        <h2>Sign Up</h2>
+        <label for="email">Email</label>
+        <!-- We have donne some custom validation. If we use input type as "email", we can get the html5 validation instead. -->
+        <input class='signup-input' type="text" name="email" required />
+        <!-- This container is for the error message. -->
+        <div class="email error"></div>
+        
 
-<%- include('../template/footer'); -%>
+        <label for="password" class="signup-label">Password</label>
+        <!-- When we will type the password, it will show as dot in the form. input type password, make sure that. -->
+        <input class='signup-input' type="password" name="password"  required />
+        <div class="password error"></div>
+        <button class="signup-button">Sign Up</button>
+    </form>
 
-<script>
-    let form = document.querySelector('form');
-    const emailError = document.querySelector('.email.error');
-    const passwordError = document.querySelector('.password.error');
+    <%- include('../template/footer'); -%>
 
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+    <script>
+        let form = document.querySelector('form');
+        const emailError = document.querySelector('.email.error');
+        const passwordError = document.querySelector('.password.error');
 
-        //reset errors
-        emailError.textContent = "";
-        passwordError.textContent = "";
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        //get the values
-        const email = form.email.value;
-        const password = form.password.value;
+            //reset errors
+            emailError.textContent = "";
+            passwordError.textContent = "";
 
-        try {
-            const res = await fetch ('/signup', { 
-                method: 'POST',
-                body: JSON.stringify({email,password}),
-                headers: { 'Content-Type': 'application/json'}
-            });
-            const data = await res.json();
+            //get the values
+            const email = form.email.value;
+            const password = form.password.value;
 
-            if(data.error){
-                emailError.textContent = data.error.email;
-                passwordError.textContent = data.error.password;
-                form.reset();
+            try {
+                const res = await fetch ('/signup', { 
+                    method: 'POST',
+                    body: JSON.stringify({email,password}),
+                    headers: { 'Content-Type': 'application/json'}
+                });
+                const data = await res.json();
+
+                if(data.error){
+                    emailError.textContent = data.error.email;
+                    passwordError.textContent = data.error.password;
+                    form.reset();
+                }
+                if(data.user){
+                    location.assign('/showTable');
+                }
+            } catch (err) {
+                console.log(err);
             }
-            if(data.user){
-                location.assign('/showTable');
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    })
-</script>
+        })
+    </script>
 
+</body>
+</html>

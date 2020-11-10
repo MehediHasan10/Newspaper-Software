@@ -1,189 +1,193 @@
 <%- include('../template/header') -%>
-<%- include('../template/navbar') -%>
 
-<div class="tableNews" style="height:100vh ">
-    <h1 class="text-center" style='margin-top:3em'>Add News Details</h1>
+<body>
 
-    <div class="container">
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <div style="background: #f1eeeebd;
-            padding: 50px;">
+    <%- include('../template/navbar') -%>
 
-                <!-- <div >
-                    <span class="success"></span>
-                </div>
-                <br> -->
+    <div class="tableNews" style="height:100vh ">
+        <h1 class="text-center" style='margin-top:3em'>Add News Details</h1>
 
-                <form name="form" method="post" action="/addForm" enctype="multipart/form-data" >
-                    
-                    <div class="form-group">
-                        <label for="validationDefault01">Headline</label>
-                        <input type="text" class="form-control" id="validationDefault01" name="headline" placeholder="Enter News Headline" required>                        
-                    </div>
+        <div class="container">
+            <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+                <div style="background: #f1eeeebd;
+                padding: 50px;">
 
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label >Newspaper Name</label> <br>
-                                <select name="newsPaper" required>
-                                    <option value="" disabled selected hidden>Choose a Newspaper</option>
-                                    <% if(output.length > 0) { %>
-                                        <% output.forEach((newspaper) => { %>
-                                            <option value=<%= newspaper._id %> > <%= newspaper.newsPaperName %> </option>
-                                        <% }); %>
-                                    <% } else { %>
-                                        No Record Found !
-                                    <% } %>
-                                </select> 
-                            </div>                                      
+                    <form name="form" method="post" action="/addForm" enctype="multipart/form-data" >
+                        
+                        <div class="form-group">
+                            <label for="validationDefault01">Headline</label>
+                            <input type="text" class="form-control" id="validationDefault01" name="headline" placeholder="Enter News Headline" required>                        
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label >District Name</label><br>
-                                <select name="district" required>
-                                    <option value="" disabled selected hidden>Choose a District</option>
-                                    <option value="সারাদেশ">সারাদেশ</option>
-                                    <option value="কক্সবাজার">কক্সবাজার</option>
-                                    <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
-                                    <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
-                                    <option value="কুমিল্লা">কুমিল্লা</option>
-                                    <option value="কুষ্টিয়া">কুষ্টিয়া</option>
-                                    <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
-                                    <option value="খুলনা">খুলনা</option>
-                                    <option value="গাইবান্ধা">গাইবান্ধা</option>
-                                    <option value="গাজীপুর">গাজীপুর</option>
-                                    <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
-                                    <option value="চট্টগ্রাম">চট্টগ্রাম</option>
-                                    <option value="চাঁদপুর">চাঁদপুর</option>
-                                    <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
-                                    <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
-                                    <option value="জয়পুরহাট">জয়পুরহাট</option>
-                                    <option value="জামালপুর">জামালপুর</option>
-                                    <option value="ঝালকাঠি">ঝালকাঠি</option>
-                                    <option value="ঝিনাইদহ">ঝিনাইদহ</option>
-                                    <option value="টাঙ্গাইল">টাঙ্গাইল</option>
-                                    <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
-                                    <option value="ঢাকা">ঢাকা</option>
-                                    <option value="দিনাজপুর">দিনাজপুর</option>
-                                    <option value="নওগাঁ">নওগাঁ</option>
-                                    <option value="নড়াইল">নড়াইল</option>
-                                    <option value="নরসিংদি">নরসিংদি</option>
-                                    <option value="নাটোর">নাটোর</option>
-                                    <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
-                                    <option value="নীলফামারি">নীলফামারি</option>
-                                    <option value="নেত্রকোনা">নেত্রকোনা</option>
-                                    <option value="নোয়াখালি">নোয়াখালি</option>
-                                    <option value="পঞ্চগড়">পঞ্চগড়</option>
-                                    <option value="পটুয়াখালি">পটুয়াখালি</option>
-                                    <option value="পাবনা">পাবনা</option>
-                                    <option value="পিরোজপুর">পিরোজপুর</option>
-                                    <option value="ফরিদপুর">ফরিদপুর</option>
-                                    <option value="ফেনী">ফেনী</option>
-                                    <option value="বগুড়া">বগুড়া</option>
-                                    <option value="বরগুনা">বরগুনা</option>
-                                    <option value="বরিশাল">বরিশাল</option>
-                                    <option value="বাগেরহাট">বাগেরহাট</option>
-                                    <option value="বান্দরবান">বান্দরবান</option>
-                                    <option value="ব্রাহ্মণবাড়িয়া">ব্রাহ্মণবাড়িয়া</option>
-                                    <option value="ভোলা">ভোলা</option>
-                                    <option value="ময়মনসিংহ">ময়মনসিংহ</option>
-                                    <option value="মাগুরা">মাগুরা</option>
-                                    <option value="মাদারিপুর">মাদারিপুর</option>
-                                    <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
-                                    <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
-                                    <option value="মেহেরপুর">মেহেরপুর</option>
-                                    <option value="মৌলভীবাজার">মৌলভীবাজার</option>
-                                    <option value="যশোর">যশোর</option>
-                                    <option value="রংপুর">রংপুর</option>
-                                    <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
-                                    <option value="রাজবাড়ি">রাজবাড়ি</option>
-                                    <option value="রাজশাহী">রাজশাহী</option>
-                                    <option value="লক্ষ্মীপুর">লক্ষ্মীপুর</option>
-                                    <option value="লালমনিরহাট">লালমনিরহাট</option>
-                                    <option value="শরিয়তপুর">শরিয়তপুর</option>
-                                    <option value="শেরপুর">শেরপুর</option>
-                                    <option value="সাতক্ষীরা">সাতক্ষীরা</option>
-                                    <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
-                                    <option value="সিলেট">সিলেট</option>
-                                    <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
-                                    <option value="হবিগঞ্জ">হবিগঞ্জ</option>
-                                </select> 
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label >Newspaper Name</label> <br>
+                                    <select name="newsPaper" required>
+                                        <option value="" disabled selected hidden>Choose a Newspaper</option>
+                                        <% if(output.length > 0) { %>
+                                            <% output.forEach((newspaper) => { %>
+                                                <option value=<%= newspaper._id %> > <%= newspaper.newsPaperName %> </option>
+                                            <% }); %>
+                                        <% } else { %>
+                                            No Record Found !
+                                        <% } %>
+                                    </select> 
+                                </div>                                      
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label >District Name</label><br>
+                                    <select name="district" required>
+                                        <option value="" disabled selected hidden>Choose a District</option>
+                                        <option value="সারাদেশ">সারাদেশ</option>
+                                        <option value="কক্সবাজার">কক্সবাজার</option>
+                                        <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
+                                        <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
+                                        <option value="কুমিল্লা">কুমিল্লা</option>
+                                        <option value="কুষ্টিয়া">কুষ্টিয়া</option>
+                                        <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
+                                        <option value="খুলনা">খুলনা</option>
+                                        <option value="গাইবান্ধা">গাইবান্ধা</option>
+                                        <option value="গাজীপুর">গাজীপুর</option>
+                                        <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
+                                        <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                                        <option value="চাঁদপুর">চাঁদপুর</option>
+                                        <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
+                                        <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
+                                        <option value="জয়পুরহাট">জয়পুরহাট</option>
+                                        <option value="জামালপুর">জামালপুর</option>
+                                        <option value="ঝালকাঠি">ঝালকাঠি</option>
+                                        <option value="ঝিনাইদহ">ঝিনাইদহ</option>
+                                        <option value="টাঙ্গাইল">টাঙ্গাইল</option>
+                                        <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
+                                        <option value="ঢাকা">ঢাকা</option>
+                                        <option value="দিনাজপুর">দিনাজপুর</option>
+                                        <option value="নওগাঁ">নওগাঁ</option>
+                                        <option value="নড়াইল">নড়াইল</option>
+                                        <option value="নরসিংদি">নরসিংদি</option>
+                                        <option value="নাটোর">নাটোর</option>
+                                        <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
+                                        <option value="নীলফামারি">নীলফামারি</option>
+                                        <option value="নেত্রকোনা">নেত্রকোনা</option>
+                                        <option value="নোয়াখালি">নোয়াখালি</option>
+                                        <option value="পঞ্চগড়">পঞ্চগড়</option>
+                                        <option value="পটুয়াখালি">পটুয়াখালি</option>
+                                        <option value="পাবনা">পাবনা</option>
+                                        <option value="পিরোজপুর">পিরোজপুর</option>
+                                        <option value="ফরিদপুর">ফরিদপুর</option>
+                                        <option value="ফেনী">ফেনী</option>
+                                        <option value="বগুড়া">বগুড়া</option>
+                                        <option value="বরগুনা">বরগুনা</option>
+                                        <option value="বরিশাল">বরিশাল</option>
+                                        <option value="বাগেরহাট">বাগেরহাট</option>
+                                        <option value="বান্দরবান">বান্দরবান</option>
+                                        <option value="ব্রাহ্মণবাড়িয়া">ব্রাহ্মণবাড়িয়া</option>
+                                        <option value="ভোলা">ভোলা</option>
+                                        <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                                        <option value="মাগুরা">মাগুরা</option>
+                                        <option value="মাদারিপুর">মাদারিপুর</option>
+                                        <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
+                                        <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
+                                        <option value="মেহেরপুর">মেহেরপুর</option>
+                                        <option value="মৌলভীবাজার">মৌলভীবাজার</option>
+                                        <option value="যশোর">যশোর</option>
+                                        <option value="রংপুর">রংপুর</option>
+                                        <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
+                                        <option value="রাজবাড়ি">রাজবাড়ি</option>
+                                        <option value="রাজশাহী">রাজশাহী</option>
+                                        <option value="লক্ষ্মীপুর">লক্ষ্মীপুর</option>
+                                        <option value="লালমনিরহাট">লালমনিরহাট</option>
+                                        <option value="শরিয়তপুর">শরিয়তপুর</option>
+                                        <option value="শেরপুর">শেরপুর</option>
+                                        <option value="সাতক্ষীরা">সাতক্ষীরা</option>
+                                        <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
+                                        <option value="সিলেট">সিলেট</option>
+                                        <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
+                                        <option value="হবিগঞ্জ">হবিগঞ্জ</option>
+                                    </select> 
+                                </div>
+                            </div>
+
                         </div>
 
-                    </div>
+                        <div class="form-group">
+                            <label for="validationDefault07">Enter Tags</label>
+                            <input type="text" class="form-control" id="validationDefault07" name="tags" placeholder="Enter tags" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="validationDefault07">Enter Tags</label>
-                        <input type="text" class="form-control" id="validationDefault07" name="tags" placeholder="Enter tags" required>
-                    </div>
+                        <div class="form-group">
+                            <label for="validationDefault04">Page Number</label>
+                            <input type="text" class="form-control" id="validationDefault04" name="pageNumber" placeholder="Enter page number" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="validationDefault05">Date</label>
+                            <input type="date" class="form-control" id="validationDefault05"name="date" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="validationDefault04">Page Number</label>
-                        <input type="text" class="form-control" id="validationDefault04" name="pageNumber" placeholder="Enter page number" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="validationDefault05">Date</label>
-                        <input type="date" class="form-control" id="validationDefault05"name="date" required>
-                    </div>
+                        <div class="form-group">
+                            <label >Choose</label>
+                            <input type="file" id="filename" class="form-control" name="newsUp" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label >Choose</label>
-                        <input type="file" id="filename" class="form-control" name="newsUp" required>
-                    </div>
+                        <button type="submit" id="b1" value="Submit" class="btn btn-primary">Submit</button>
 
-                    <button type="submit" id="b1" value="Submit" class="btn btn-primary">Submit</button>
-
-                </form>   
+                    </form>   
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="text-center">
-    <p>Click on Delete Button</p>
-    <button type="button" class="btn btn-danger" id="bb">
-      <i class="glyphicon glyphicon-trash"></i> Delete
-    </button>
-</div>
+    <!-- <div class="text-center">
+        <p>Click on Delete Button</p>
+        <button type="button" class="btn btn-danger" id="bb">
+        <i class="glyphicon glyphicon-trash"></i> Delete
+        </button>
+    </div>
 
-<script>
-    $('button').click(function(){
+    <script>
+        $("document").ready(function(){
+            $('button').click(function(){
 
-    swal({
-    title: 'Are you sure?',
-    text: "It will permanently deleted !",
-    type: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Yes, delete it!'
-    }).then(function() {
-        swal(
-        'Deleted!',
-        'Your file has been deleted.',
-        'success'
-        );
-    })
+                swal({
+                title: 'Are you sure?',
+                text: "It will permanently deleted !",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then(function() {
+                    swal(
+                    'Deleted!',
+                    'Your file has been deleted.',
+                    'success'
+                    );
+                })
 
-    })
-</script>
+            })
+        });
+        
+    </script> -->
 
-<!-- <script>
-    $('#b1').click(function(){
-        // swal("Good job!", "You clicked the button!", "success")
-        swal("Hello world!");
-    });
-</script> -->
-<!-- <script>
-    $('#form').submit(function(e) {
-        $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
-        $('#messages_content').html('<h4>News Added</h4>');
-        $('#modal').modal('show');
-        e.preventDefault();
-    });
-</script> -->
+    <!-- <script>
+        $('#b1').click(function(){
+            // swal("Good job!", "You clicked the button!", "success")
+            swal("Hello world!");
+        });
+    </script> -->
+    <!-- <script>
+        $('#form').submit(function(e) {
+            $('#messages').removeClass('hide').addClass('alert alert-success alert-dismissible').slideDown().show();
+            $('#messages_content').html('<h4>News Added</h4>');
+            $('#modal').modal('show');
+            e.preventDefault();
+        });
+    </script> -->
 
-<%- include('../template/footer') -%>
+    <%- include('../template/footer') -%>
+
+</body>
+</html>

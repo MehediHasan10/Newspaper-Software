@@ -1,45 +1,57 @@
-<style>
-.flex-container {
-    display: flex;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News PDF</title>
+
+    <style>
+        .flex-container {
+            display: flex;
+            
+            justify-content: center
+        }
+        .center {
+            text-align: center;
+        }
+        .inline-block-child {
+          display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="center">
+        <div class='child inline-block-child'>
+            <img src="images/bdlogo.png" style="width:80px; height: 80px; margin-right: 3em">
+        </div>
     
-    justify-content: center
-}
-.center {
-    text-align: center;
-}
-.inline-block-child {
-  display: inline-block;
-}
-
-
-</style>
-
-<div class="center">
-    <div class='child inline-block-child'>
-        <img src="images/bdlogo.png" style="width:80px; height: 80px; margin-right: 3em">
+        <div class='child inline-block-child'>
+            <img src="<%= dirname %>/../public/<%= output.newspapers.logo %>" style="width:250px; height: 60px;"> 
+        </div>
+    
+        <div class='child inline-block-child'>
+            <img src="images/ais.png" style="width:80px; height: 80px; margin-left: 3em;">
+        </div>   
     </div>
-
-    <div class='child inline-block-child'>
-        <img src="<%= dirname %>/../public/<%= output.newspapers.logo %>" style="width:250px; height: 60px;"> 
+    
+    <div style="margin-top: 5px; padding-top: 10px; background-color: #ffffffa6; box-shadow: 1px 1px 10px black;" class="center">
+        <div >
+            <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
+            <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> পৃষ্ঠা নংঃ </span> <span style="font-size: 15px; font-weight:bold"><%= output.pageNumber %></span>
+            <br>
+            <br>
+        </div>
     </div>
-
-    <div class='child inline-block-child'>
-        <img src="images/ais.png" style="width:80px; height: 80px; margin-left: 3em;">
-    </div>   
-</div>
-
-<div style="margin-top: 5px; padding-top: 10px; background-color: #ffffffa6; box-shadow: 1px 1px 10px black;" class="center">
-    <div >
-        <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
-        <span style="font-size: 15px; font-family: myFirstFont; font-weight: bold"> পৃষ্ঠা নংঃ </span> <span style="font-size: 15px; font-weight:bold"><%= output.pageNumber %></span>
-        <br>
-        <br>
+    
+    <div class="center">
+        <img style=" height: auto; max-width: 420px; border: 1px solid green; margin-top: 30px" src="<%= dirname %>/../public/<%= output.image %>" alt="">
     </div>
-</div>
+</body>
+</html>
 
-<div class="center">
-    <img style=" height: auto; max-width: 420px; border: 1px solid green; margin-top: 30px" src="<%= dirname %>/../public/<%= output.image %>" alt="">
-</div>
+
+
+
 
 
 

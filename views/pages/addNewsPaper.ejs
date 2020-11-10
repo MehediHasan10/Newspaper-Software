@@ -1,29 +1,36 @@
 <%- include('../template/header') -%>
-<%- include('../template/navbar') -%>
 
-<div style = "margin: 3rem">
-    <h1 class="text-center" style='margin-top:3em'>Add Newspaper</h1>
-    <div class="container">
-        <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-            <div style="background-color: #ffffff80;
-            padding: 50px;">
-                <form method="post" action="/addNewsPaper" enctype="multipart/form-data">
+<body>
 
-                    <div class="form-group">
-                        <label for="validationDefault01">Newpaper Name</label>
-                        <input type="text" class="form-control" id="validationDefault01" name="newsPaperName" placeholder="Enter Newspapaer Name" required>                        
-                    </div>
-                    <div class="form-group">
-                        <label >Choose the logo</label>
-                        <input type="file" id="filename" class="form-control" name="logo" required>
-                    </div>
+    <%- include('../template/navbar') -%>
 
-                    <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+    <div style = "margin: 3rem">
+        <h1 class="text-center" style='margin-top:3em'>Add Newspaper</h1>
+        <div class="container">
+            <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+                <div style="background-color: #ffffff80;
+                padding: 50px;">
+                    <form method="post" action="/addNewsPaper" enctype="multipart/form-data">
 
-                </form>
+                        <div class="form-group">
+                            <label for="validationDefault01">Newpaper Name</label>
+                            <input type="text" class="form-control" id="validationDefault01" name="newsPaperName" placeholder="Enter Newspapaer Name" required>                        
+                        </div>
+                        <div class="form-group">
+                            <label >Choose the logo</label>
+                            <input type="file" id="filename" class="form-control" name="logo" required>
+                        </div>
+
+                        <button type="submit" value="Submit" class="btn btn-primary">Submit</button>
+
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<%- include('../template/footer') -%>
+    <%- include('../template/footer') -%>
+
+</body>
+
+</html>

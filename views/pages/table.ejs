@@ -1,59 +1,62 @@
 <%- include('../template/header') -%>
-<%- include('../template/navbar') -%>
 
-<div class="tableNews" style="height:2000vh">
+<body>
+    <%- include('../template/navbar') -%>
 
-    <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
-        <h1 class="text-center" style='padding-top:3em; color: darkcyan; font-family: "Ubuntu", sans-serif;'>Today's News</h1>
-        <% if(output.length > 0) { %>
-            <div class="row">
-                <% output.forEach((entry) => { %>
-                    <a href="/open/<%= entry.id %>" style="text-decoration: none;">
-                        <div class="col-md-4" style="margin-bottom: 10px;">                
-                            <div class="card-deck">
-                                <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
-                                    <div class="card-header text-center" style="font-weight:bold;">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <img class="card-img-top" style = "width:200px; height:50px " src="<%= entry.newspapers.logo %>">
-                                                
+    <div class="tableNews" style="height:2000vh">
+
+        <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
+            <h1 class="text-center" style='padding-top:3em; color: darkcyan; font-family: "Ubuntu", sans-serif;'>Today's News</h1>
+            <% if(output.length > 0) { %>
+                <div class="row">
+                    <% output.forEach((entry) => { %>
+                        <a href="/open/<%= entry.id %>" style="text-decoration: none;">
+                            <div class="col-md-4" style="margin-bottom: 10px;">                
+                                <div class="card-deck">
+                                    <div class="card card__one" style="box-shadow: 4px 4px 5px #929293;">
+                                        <div class="card-header text-center" style="font-weight:bold;">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <img class="card-img-top" style = "width:200px; height:50px " src="<%= entry.newspapers.logo %>">
+                                                    
+                                                </div>
+            
                                             </div>
-        
+            
                                         </div>
-        
-                                    </div>
-                                    <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
-                                    <div class="card-body">
-                                        <h5 class="card-title head"  style="text-align: justify; font-family: myFirstFont" ><%= entry.headline %></h5>
-                                    </div>
-                                    <div class="card-footer text-center" class="text-center">
-                                        
-                                        <% if (locals.user) { %>
-                                            <a href="#"  style="text-decoration:none;"><span style="font-family: myFirstFont; color:black" > <%= moment(entry.date).format('DD-MMM-YYYY') %> , <%= entry.district %></span></a>
-                                            <br>
-                                            <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>        
-                                            <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>        
-                                            <a href="/delete/<%= entry.id %>" class="btn btn-danger"  style="text-decoration:none;"> <i class="fa fa-trash"></i> Delete</a>
-        
-                                        <% } else { %>
-                                            <a href="#"  style="text-decoration:none;"><span style="font-family: myFirstFont; color:black" > <%= moment(entry.date).format('DD-MMM-YYYY') %>, <%= entry.district %></span></a>
-                                        <% } %>
+                                        <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
+                                        <div class="card-body">
+                                            <h5 class="card-title head"  style="text-align: justify; font-family: myFirstFont" ><%= entry.headline %></h5>
+                                        </div>
+                                        <div class="card-footer text-center" class="text-center">
+                                            
+                                            <% if (locals.user) { %>
+                                                <a href="#"  style="text-decoration:none;"><span style="font-family: myFirstFont; color:black" > <%= moment(entry.date).format('DD-MMM-YYYY') %> , <%= entry.district %></span></a>
+                                                <br>
+                                                <a href="/open/<%= entry.id %>" class="btn btn-success" style="text-decoration:none;"><i class="fa fa-search-plus"></i> Open   </a>        
+                                                <a href="/edit/<%= entry.id %>" class="btn btn-primary" style="text-decoration:none;"> <i class="fa fa-edit"></i> Edit  </a>        
+                                                <a href="/delete/<%= entry.id %>" class="btn btn-danger"  style="text-decoration:none;"> <i class="fa fa-trash"></i> Delete</a>
+            
+                                            <% } else { %>
+                                                <a href="#"  style="text-decoration:none;"><span style="font-family: myFirstFont; color:black" > <%= moment(entry.date).format('DD-MMM-YYYY') %>, <%= entry.district %></span></a>
+                                            <% } %>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </a>   
-                
-                <% }); %>
-            </div>
-        
-    <% } else { %>
-        <h5 class="text-center">No Record Found !</h5>
-    <% } %>
+                        </a>   
+                    
+                    <% }); %>
+                </div>
+            
+        <% } else { %>
+            <h5 class="text-center">No Record Found !</h5>
+        <% } %>
+        </div>
     </div>
-</div>
 
 
-<%- include('../template/footer') -%>
+    <%- include('../template/footer') -%>
 
-<!--  -->
+</body>
+</html>

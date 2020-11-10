@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const fs = require("fs");
 
 const newsModel = require("../schema/addNews");
 const User = require("../schema/user");
@@ -43,7 +44,6 @@ var upload2 = multer({
     storage: storage2,
  }).single("logo");
 
-
 //handle errors
 const handleErrors = (err) => {
     console.log(err.message, err.code);
@@ -68,7 +68,6 @@ const handleErrors = (err) => {
   }
   return errors;
 };
-
 
 //create a json web token
 const maxAge = 3*24*60*60;
@@ -366,7 +365,9 @@ router.post("/update/:id", upload, async (req, res) => {
 router.get("/delete/:id", async (req, res) => {
     try {
         const tableDelete = await newsModel.findById(req.params.id);
-        
+
+        //console.log(tableDelete.image);
+
         //Date manipulation to get the right redirect url
         var today = new Date();
         var dd = String(today.getDate()).padStart(2, '0');
@@ -374,6 +375,13 @@ router.get("/delete/:id", async (req, res) => {
         var yyyy = today.getFullYear();
         today = yyyy+ '-' +mm+ '-' +dd;
         
+        // Delete express file system 
+        fs.unlink("./public" + tableDelete.image, (err) => {
+            if (err) {
+                console.log("failed to delete local image:"+err);
+            }
+        });
+
         if(moment(tableDelete.date).isSameOrAfter(today) ) {
             await tableDelete.remove();
             res.redirect('/showTable');
@@ -381,7 +389,7 @@ router.get("/delete/:id", async (req, res) => {
             await tableDelete.remove();
             res.redirect('/archieve');
         }
-
+        
     } catch (err) {
         console.log(`ERROR : ${err}`);
     }
@@ -428,28 +436,18 @@ router.post("/filterNews", async (req, res) => {
                     moment: moment
                 });
             } else if (dName === ''){
-                // const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}} });
-                // const filterData = await newsModel.find({}).populate({
-                //     path: 'newspapers',
-                //     match: {newsPaperName: nPaper}
-                // });
-                const filterData = await newsModel.findOne({
+                const filterData = await newsModel.find({
                     "newspapers.newsPaperName" : nPaper
                 });
-                //console.log("filter", filterData);
                 res.render('pages/archieve', {
                     output:filterData, 
                     newspaper: newspaper,
                     moment: moment
                 });
             } else {
-                // const filterData = await newsModel.find({district: dName, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
-                // const filterData = await newsModel.find({district: dName}).populate({
-                //     path: 'newspapers',
-                //     match: {newsPaperName: nPaper}
-                // });
-                const filterData = await newsModel.findOne({
-                    "newspapers.newsPaperName" : nPaper
+                const filterData = await newsModel.find({
+                    "newspapers.newsPaperName" : nPaper,
+                    district: dName
                 });
                 res.render('pages/archieve', {
                     output:filterData, 
@@ -467,14 +465,20 @@ router.post("/filterNews", async (req, res) => {
                     moment: moment
                 });
             } else if (date === '') {
-                const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}});
+                // const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}});
+                const filterData = await newsModel.find({
+                    "newspapers.newsPaperName" : nPaper
+                });
                 res.render('pages/archieve', {
                     output:filterData, 
                     newspaper: newspaper,
                     moment: moment
                 });
             } else {
-                const filterData = await newsModel.find({date: date, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                // const filterData = await newsModel.find({date: date, newspapers: {$elemMatch: {newsPaperName: nPaper}} });
+                const filterData = await newsModel.find({
+                    "newspapers.newsPaperName" : nPaper
+                });
                 res.render('pages/archieve', {
                     output:filterData, 
                     newspaper: newspaper,
@@ -483,9 +487,13 @@ router.post("/filterNews", async (req, res) => {
             }
 
         } else {
-            const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}, district: dName, date: date});
-            //console.log(filterData);
-            //res.redirect('/showTable')
+            // const filterData = await newsModel.find({newspapers: {$elemMatch: {newsPaperName: nPaper}}, district: dName, date: date});
+
+            const filterData = await newsModel.find({
+                "newspapers.newsPaperName" : nPaper,
+                district: dName,
+                date: date
+            });
             res.render('pages/archieve', {
                 output:filterData, 
                 newspaper: newspaper,
@@ -500,17 +508,19 @@ router.post("/filterNews", async (req, res) => {
 //@route  -  POST  /filterTag
 router.post("/filterTag", async (req, res) => {
     var tag = req.body.tags;
+    var trimmedTag = tag.trim();
+    // console.log(trimmedTag);
 
     try {
         const newspaper = await NewspaperModel.find({});
-        const filterTags = await newsModel.find({tags : tag});
+        const filterTags = await newsModel.find({tags : trimmedTag});
 
         res.render('pages/archieve', {
             output:filterTags, 
             newspaper: newspaper,
             moment: moment
         });
-        res.redirect('/archieve')
+        //res.redirect('/archieve')
     } catch (err) {
         console.log(err);
     }
