@@ -1,23 +1,48 @@
 <%- include('../template/header'); -%>
 
 <body>
-    <form action='/login' class='signup-form' style='margin-top: 100px'>
-        <h2>Log in</h2>
-        <label for="email">Email</label>
-        <!-- We have donne some custom validation. If we use input type as "email", we can get the html5 validation instead. -->
-        <input class='signup-input' type="text" name="email" required />
-        <!-- This container is for the error message. -->
-        <div class="email error"></div>
-        
+    <div style="height: 85vh;">
+        <form action='/login' class='signup-form' style='margin-top: 100px'>
+            <h2 class="text-center">Log in</h2>
+            <label for="email">Email</label>
+            <!-- We have donne some custom validation. If we use input type as "email", we can get the html5 validation instead. -->
+            <input class='signup-input' type="text" name="email" required />
+            <!-- This container is for the error message. -->
+            <div class="email error"></div>
+            
+    
+            <label for="password">Password</label>
+            <!-- When we will type the password, it will show as dot in the form. input type password, make sure that. -->
+            <input class='signup-input' type="password" name="password" required />
+            <div class="password error"></div>
+            <button class="signup-button" type="submit">Log in</button>
+        </form>
+    </div>
+    
+    <footer class="text-center">
+        ©2020 Developed by Kernel Technologies
+    </footer>
 
-        <label for="password">Password</label>
-        <!-- When we will type the password, it will show as dot in the form. input type password, make sure that. -->
-        <input class='signup-input' type="password" name="password" required />
-        <div class="password error"></div>
-        <button class="signup-button" type="submit">Log in</button>
-    </form>
+    <!-- Script Links -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
-    <%- include('../template/footer'); -%>
+    <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    
+    <script src="/add-download-btn.js"></script>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+
+
+
 
     <script>
         const form = document.querySelector('form');

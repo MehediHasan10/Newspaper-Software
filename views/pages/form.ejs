@@ -15,16 +15,16 @@
                     <form name="form" method="post" action="/addForm" enctype="multipart/form-data" >
                         
                         <div class="form-group">
-                            <label for="validationDefault01">Headline</label>
-                            <input type="text" class="form-control" id="validationDefault01" name="headline" placeholder="Enter News Headline" required>                        
+                            <label style="font-weight:bold">Headline</label>
+                            <input id="headline" type="text" class="form-control" name="headline" placeholder="Enter News Headline" required>                        
                         </div>
 
                         <div class="row">
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label >Newspaper Name</label> <br>
-                                    <select name="newsPaper" required>
+                                    <label style="font-weight:bold">Newspaper Name</label> <br>
+                                    <select id="news" name="newsPaper" required>
                                         <option value="" disabled selected hidden>Choose a Newspaper</option>
                                         <% if(output.length > 0) { %>
                                             <% output.forEach((newspaper) => { %>
@@ -38,8 +38,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label >District Name</label><br>
-                                    <select name="district" required>
+                                    <label style="font-weight:bold">District Name</label><br>
+                                    <select id= "district" name="district" required>
                                         <option value="" disabled selected hidden>Choose a District</option>
                                         <option value="সারাদেশ">সারাদেশ</option>
                                         <option value="কক্সবাজার">কক্সবাজার</option>
@@ -113,22 +113,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="validationDefault07">Enter Tags</label>
-                            <input type="text" class="form-control" id="validationDefault07" name="tags" placeholder="Enter tags" required>
+                            <label > <span style="font-weight:bold">Enter Tags </span>(Can be some comma(,) separated values)</label>
+                            <input id="tags" type="text" class="form-control"  name="tags" placeholder="Enter tags" required>
                         </div>
 
                         <div class="form-group">
-                            <label for="validationDefault04">Page Number</label>
-                            <input type="text" class="form-control" id="validationDefault04" name="pageNumber" placeholder="Enter page number" required>
+                            <label style="font-weight:bold">Page Number</label>
+                            <input id="" type="text" class="form-control" name="pageNumber" placeholder="Enter page number" required>
                         </div>
                         
                         <div class="form-group">
-                            <label for="validationDefault05">Date</label>
-                            <input type="date" class="form-control" id="validationDefault05"name="date" required>
+                            <label style="font-weight:bold">Date</label>
+                            <input type="date" class="form-control" name="date" required>
                         </div>
 
                         <div class="form-group">
-                            <label >Choose</label>
+                            <label style="font-weight:bold">Choose News Image</label>
                             <input type="file" id="filename" class="form-control" name="newsUp" required>
                         </div>
 
@@ -139,6 +139,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $("document").ready(function(){
+            $('button').click(function(){
+
+                var hline = $('#headline').val();
+                var news = $('#news').val();
+                var district = $('district').val();
+                var tags = $('tags').val();
+
+
+                if(hline != '' && news != '' && district != '' && ){
+                    Swal.fire(
+                    'Good job!',
+                    'You clicked the button!',
+                    'success'
+                    )
+                }
+                
+            })
+        });
+        
+    </script> 
     
     <%- include('../template/footer') -%>
 
