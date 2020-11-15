@@ -6,6 +6,11 @@ body{
   font-family: myFirstFont;
   src: url(../fonts/ShorifJonota/LiShorifJonotaUnicode.ttf);
 }
+@font-face {
+  font-family: nikoshFont;
+  src: url(../fonts/Nikosh/Nikosh.ttf);
+
+}
 
 
 .tableNews{

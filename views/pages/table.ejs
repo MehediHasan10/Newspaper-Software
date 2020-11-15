@@ -6,7 +6,7 @@
     <div class="tableNews" style = "min-height: 100vh; height: auto;">
 
         <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
-            <h1 class="text-center" style='padding-top:3em; color: darkcyan; font-family: "Ubuntu", sans-serif;'>Today's News</h1>
+            <h1 class="text-center" style='padding-top:3em; color: darkcyan; font-family: nikoshFont; font-weight:bolder;'>আজকের সংবাদ</h1>
             <% if(output.length > 0) { %>
                 <div class="row">
                     <% output.forEach((entry) => { %>
@@ -50,7 +50,7 @@
                 </div>
             
         <% } else { %>
-            <h5 class="text-center">No Record Found !</h5>
+            <h5 class="text-center", style="font-family: nikoshFont; font-weight:bolder;" >আজকের সংবাদ এখনও আপডেট হয়নাই !</h5>
         <% } %>
         </div>
     </div>

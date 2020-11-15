@@ -22,20 +22,20 @@
 
             <div style=" margin-bottom: 20px; padding-bottom: 5px; padding-top: 10px; margin-top: 30px; background-color: #ffffffa6; box-shadow: 2px 2px 12px black;" class="text-center">
                 <h2 class="text-center mb-4" >
-                    <span style="font-family:'roboto'; font-weight:bold; color:#254c2a">News Headline: </span> <span style="font-family: myFirstFont;"><%= output.headline %></span>
+                    <span style="font-family: nikoshFont; font-weight:bolder; color:#254c2a">সংবাদ শিরোনাম: </span> <span style="font-family: nikoshFont;"><%= output.headline %></span>
                 </h2>
                 <div >
-                    <span style="font-size: 20px; font-family: myFirstFont"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
-                    <span style="font-size: 20px; font-family: myFirstFont"> পৃষ্ঠা নংঃ </span> <span style="font-size: 20px; font-weight:bold"><%= output.pageNumber %></span>
+                    <span style="font-size: 18px; font-family: nikoshFont"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
+                    <span style="font-size: 18px; font-family: nikoshFont; font-weight:bold"> পৃষ্ঠা নংঃ </span> <span style="font-size: 17px"><%= output.pageNumber %></span>
                     <br>
-                    <b>Tags: </b> 
+                    <b style="font-size: 18px; font-family: nikoshFont;">ট্যাগ: </b> 
                     <% output.tags.forEach((entry) => { %>
-                        <span class=""> <%= entry %> </span> |
+                        <span class="", style="font-size: 17px; font-family: nikoshFont"> <%= entry %> </span> |
                     <% }); %>
                     <br>
                     <a href="<%= output.image %>" download>
-                        <button class="btn btn-info" style="background-image: linear-gradient(45deg, #06a014, #28ff00b0)">
-                            Download News 
+                        <button class="btn btn-info" style="font-family: nikoshFont; background-image: linear-gradient(45deg, #06a014, #28ff00b0)">
+                            সংবাদটি ডাউনলোড করুন  
                         </button>
                     </a>
                     <br>
@@ -53,12 +53,14 @@
             <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
                 Share on Facebook
             </a> -->
+            <div class="text-center">
+                <a href="/generateReport/<%= output.id %>">
+                    <button class="btn btn-info" style="font-family: nikoshFont; background-image: linear-gradient(180deg, #06a014, #28ff00b0)">
+                        সংবাদটি পিডিএফ আকারে ডাউনলোড করুন   
+                    </button> 
+                </a>
+            </div>
             
-            <a href="/generateReport/<%= output.id %>">
-                <button class="btn btn-info" style="background-image: linear-gradient(180deg, #06a014, #28ff00b0)">
-                    Download as Pdf
-                </button> 
-            </a>
         </div>
     </div>
 

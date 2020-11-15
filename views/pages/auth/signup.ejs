@@ -1,9 +1,9 @@
-<%- include('../template/header'); -%>
+<%- include('../../template/header'); -%>
 
 <body>
     <div style="height: 85vh;">
-        <form action='/login' class='signup-form' style='margin-top: 100px'>
-            <h2 class="text-center">Log in</h2>
+        <form action='/signup' class='signup-form' style='margin-top: 100px'>
+            <h2 class="text-center">Sign Up</h2>
             <label for="email">Email</label>
             <!-- We have donne some custom validation. If we use input type as "email", we can get the html5 validation instead. -->
             <input class='signup-input' type="text" name="email" required />
@@ -11,11 +11,11 @@
             <div class="email error"></div>
             
     
-            <label for="password">Password</label>
+            <label for="password" class="signup-label">Password</label>
             <!-- When we will type the password, it will show as dot in the form. input type password, make sure that. -->
-            <input class='signup-input' type="password" name="password" required />
+            <input class='signup-input' type="password" name="password"  required />
             <div class="password error"></div>
-            <button class="signup-button" type="submit">Log in</button>
+            <button class="signup-button">Sign Up</button>
         </form>
     </div>
     
@@ -40,12 +40,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 
-
-
-
-
     <script>
-        const form = document.querySelector('form');
+        let form = document.querySelector('form');
         const emailError = document.querySelector('.email.error');
         const passwordError = document.querySelector('.password.error');
 
@@ -61,7 +57,7 @@
             const password = form.password.value;
 
             try {
-                const res = await fetch ('/login', { 
+                const res = await fetch ('/signup', { 
                     method: 'POST',
                     body: JSON.stringify({email,password}),
                     headers: { 'Content-Type': 'application/json'}
@@ -71,6 +67,7 @@
                 if(data.error){
                     emailError.textContent = data.error.email;
                     passwordError.textContent = data.error.password;
+                    form.reset();
                 }
                 if(data.user){
                     location.assign('/showTable');

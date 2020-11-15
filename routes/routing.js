@@ -524,19 +524,44 @@ router.post("/filterTag", async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-})
+});
+
+//@route  -  GET /auto completion
+router.get('/auto', (req, res) => {
+    //console.log("aaa");
+    var regex = new RegExp(req.query["term"], 'i');
+    var  allTags = newsModel.find({tags: regex}, {"tags": 1}).limit(20);
+    allTags.exec(function(err, data) {
+        console.log(data);
+        var result = [];
+        if (!err) {
+             if(data && data.length && data.length>0){
+                 data.forEach(user => {
+                     let obj = {
+                         id: user._id,
+                         label: user.tags
+                     };
+                     result.push(obj);
+                 });
+            }
+            //console.log(result);
+            res.jsonp(result);
+        }
+    });
+
+});
 
 
 //Auth-Routes
 
 //signup - GET
 router.get("/signup", (req, res) => {
-    res.render("pages/signup");
+    res.render("pages/auth/signup");
 });
 
 //login  - GET
 router.get("/login", (req, res) => {
-    res.render("pages/login");
+    res.render("pages/auth/login");
 });
 
 //signup - POST
