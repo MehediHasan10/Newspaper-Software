@@ -7,7 +7,7 @@
     <div class="tableNews">
         <div style="padding-top: 3em";>
             <div class="container" style="background:rgb(255 255 255 / 60%); padding:44px">
-                <h1 class="text-center" style='margin-top:1.5em; margin-bottom: 10px; font-family: nikoshFont; color: darkcyan;'>সংবাদ আর্কাইভ</h1>
+                <h1 class="text-center" style='margin-top:1.5em; font-weight:bolder; margin-bottom: 10px; font-family: nikoshFont; color: darkcyan;'>সংবাদ আর্কাইভ</h1>
         
                 <form method="post" action="/filterNews" style="box-shadow: 2px 2px 12px black; margin-bottom: 20px; padding-top: 25px; padding-left: 120px;">
                     <div class="row">
@@ -146,9 +146,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <img class="card-img-top" width="auto" height="200px" src="<%= entry.image %>">
+                                        <div class="card-img-top text-center">
+                                            <img  width="auto" height="200px" src="<%= entry.image %>">
+                                        </div>
                                         <div class="card-body">
-                                            <h5 class="card-title" style="text-align: justify; font-weight:bold; font-family: nikoshFont"><%= entry.headline %></h5>
+                                            <h5 class="card-title text-center " style="text-align: justify; font-weight:bold; font-family: nikoshFont"><%= entry.headline %></h5>
                                         </div>
                                         <div class="card-footer text-center">
                                             

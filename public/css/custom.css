@@ -14,7 +14,7 @@ body{
 
 
 .tableNews{
-  background-image: url("../images/khet.jpg");
+  background-image: url("../images/bwboat.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
@@ -69,6 +69,16 @@ nav{
 }
 .card__one:hover::after, .card__one:focus::after {
   opacity: 1;
+}
+
+.card-body{
+  box-sizing: content-box;
+  height: 70px;
+  padding-bottom: 0px;
+}
+
+.card-title{
+  color: darkcyan;
 }
 
 form h2{
@@ -280,4 +290,15 @@ Expands an element to fit its container
   padding: 10px 0;
 }
 
+/* heding Underline design */
+.underline--magical {
+  background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  transition: background-size 0.25s ease-in;
+}
+.underline--magical:hover {
+  background-size: 100% 88%;
+}
 

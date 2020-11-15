@@ -12,7 +12,7 @@
                     <div class="col-md-3">
                         <img class="card-img-top"  src="/images/bdlogo.png" style="width:80px; height: 80px;">
                     </div>
-                    <div class="col-md-6"><img class="card-img-top"  src="<%= output.newspapers.logo %>" style="width:300px; height: 100px;"></div>
+                    <div class="col-md-6"><img class="card-img-top"  src="<%= output.newspapers.logo %>" style="width:350px; height: 100px;"></div>
                     <div class="col-md-3">
                         <img src="/images/ais.png" style="width:80px; height: 80px;">
                     </div>
@@ -22,7 +22,7 @@
 
             <div style=" margin-bottom: 20px; padding-bottom: 5px; padding-top: 10px; margin-top: 30px; background-color: #ffffffa6; box-shadow: 2px 2px 12px black;" class="text-center">
                 <h2 class="text-center mb-4" >
-                    <span style="font-family: nikoshFont; font-weight:bolder; color:#254c2a">সংবাদ শিরোনাম: </span> <span style="font-family: nikoshFont;"><%= output.headline %></span>
+                    <span style="font-family: nikoshFont; font-weight:1000; color:#254c2a">সংবাদ শিরোনাম: </span> <span style="font-family: nikoshFont;" class="underline--magical"> <%= output.headline %></span>
                 </h2>
                 <div >
                     <span style="font-size: 18px; font-family: nikoshFont"> <%= moment(output.date).format('DD-MMM-YYYY') %>, <%= output.district %> </span> <br>
@@ -34,7 +34,7 @@
                     <% }); %>
                     <br>
                     <a href="<%= output.image %>" download>
-                        <button class="btn btn-info" style="font-family: nikoshFont; background-image: linear-gradient(45deg, #06a014, #28ff00b0)">
+                        <button class="btn btn-info" style="font-family: nikoshFont; font-weight:bold; background-image: linear-gradient(45deg, #06a014, #28ff00b0)">
                             সংবাদটি ডাউনলোড করুন  
                         </button>
                     </a>
@@ -53,11 +53,12 @@
             <!-- <a href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
                 Share on Facebook
             </a> -->
-            <div class="text-center">
+            <div class="text-center" style="padding-bottom: 5px;">
                 <a href="/generateReport/<%= output.id %>">
-                    <button class="btn btn-info" style="font-family: nikoshFont; background-image: linear-gradient(180deg, #06a014, #28ff00b0)">
+                    <button class="btn btn-info" style="font-family: nikoshFont; font-weight: bold; background-image: linear-gradient(180deg, #06a014, #28ff00b0)">
                         সংবাদটি পিডিএফ আকারে ডাউনলোড করুন   
                     </button> 
+                    
                 </a>
             </div>
             

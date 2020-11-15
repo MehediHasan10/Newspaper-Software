@@ -532,7 +532,7 @@ router.get('/auto', (req, res) => {
     var regex = new RegExp(req.query["term"], 'i');
     var  allTags = newsModel.find({tags: regex}, {"tags": 1}).limit(20);
     allTags.exec(function(err, data) {
-        console.log(data);
+        //console.log("data",data);
         var result = [];
         if (!err) {
              if(data && data.length && data.length>0){
@@ -544,11 +544,10 @@ router.get('/auto', (req, res) => {
                      result.push(obj);
                  });
             }
-            //console.log(result);
+            //console.log("result",result);
             res.jsonp(result);
         }
     });
-
 });
 
 
