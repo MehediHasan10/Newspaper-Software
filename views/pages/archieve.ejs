@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <label style="font-family: nikoshFont; font-weight:bold;" >সংবাদপত্র</label><br>
                                 <select class="form-control" name="newsPaper">
-                                    <option value="" disabled selected hidden>সংবাদপত্র বাছাই করুন</option>
+                                    <option value="">সংবাদপত্র বাছাই করুন</option>
                                     <% if(newspaper.length > 0) { %>
                                         <% newspaper.forEach((paper) => { %>
                                             <option value="<%= paper.newsPaperName %>" ><%= paper.newsPaperName %></option>
@@ -34,7 +34,7 @@
                                 <label style="font-family: nikoshFont; font-weight:bold;">জেলা</label><br>
                                 <span style="font-family: nikoshFont;">
                                     <select class="form-control" name="district">
-                                        <option value=""disabled selected hidden>জেলা বাছাই করুন</option>
+                                        <option value="">জেলা বাছাই করুন</option>
                                         <option value="সারাদেশ">সারাদেশ</option>
                                         <option value="কক্সবাজার">কক্সবাজার</option>
                                         <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
@@ -174,7 +174,7 @@
                 </div>
                 
                 <% } else { %>               
-                        <h5 class="text-center">আপনার সার্চের কোন ফলাফল পাওয়া যায় নাই !</h5>                
+                        <h5 class="text-center">No Record Found !</h5>                
                 <% } %>
             </div>
         </div>
