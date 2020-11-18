@@ -397,6 +397,7 @@ router.get("/delete/:id", async (req, res) => {
 
 //@route  -  POST /filterNews
 router.post("/filterNews", async (req, res) => {
+    
     var nPaper = req.body.newsPaper;
     var dName = req.body.district;
     var date = req.body.date;
